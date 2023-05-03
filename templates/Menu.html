@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block title %}<title>Menu</title>{% endblock %}
+
+{% block css %}
+<link href="../static/styles/menu.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% for product in products["pizzas"] %}
+<div class="products">
+    <div class="container">
+        <img src="../static/pictures/Margherita.jpg" class="pizza-image">
+    </div>
+    <div class="container">
+        <p>{{product["name"]}}</p>
+        <p class="pizza-ingr">{{ ', '.join(product["ingredients"]) }}</p>
+    </div>
+    <div class="container">
+        <p>{{product["price"]}}$</p>
+        <form action="/product/add/{{product['id']}}" method="post">
+            <button type="submit" onclick="alert('Pizza added to order succesfully')">Add</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+<div class="buttons">
+    <a href="{{url_for('index')}}">
+        <button>Previous</button>
+    </a>
+
+    <a href="{{url_for('preview_order')}}">
+        <button>Next</button>
+    </a>
+</div>
+{% endblock %}

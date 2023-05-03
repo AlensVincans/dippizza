@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+{% block title %}<title>Queue</title>{% endblock %}
+
+{% block css %}
+<link href="../static/styles/queue.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="stage">
+  <h2>On Queue</h2>
+</div>
+
+<div class="order">
+  <div class="ordernr">
+    <p>56</p>
+  </div>
+  <div class="contents">
+    <p>Margherita</p>
+  </div>
+</div>
+<br>
+<div class="stage">
+  <h2>In oven</h2>
+</div>
+
+<div class="order">
+  <div class="ordernr">
+    <p>64</p>
+  </div>
+  <div class="contents">
+    <p>Tonno</p>
+  </div>
+</div>
+
+<div class="order">
+  <div class="ordernr">
+    <p>68</p>
+  </div>
+  <div class="contents">
+    <p>Salami</p>
+  </div>
+</div>
+<br>
+<div class="stage">
+  <h2>Ready</h2>
+</div>
+
+<div class="order">
+  <div class="ordernr">
+    <p>72</p>
+  </div>
+  <div class="contents">
+    <p>Prosciutto e funghi</p>
+  </div>
+</div>
+
+<div class="buttons">
+  <a href="./payment.html">
+    <button class="startbtn" type="button">Previous</button>
+  </a>
+</div>
+{% block content %}

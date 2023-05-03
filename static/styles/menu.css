@@ -1,0 +1,31 @@
+.products {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-content: center;
+    row-gap: 25px;
+    column-gap: 5px;
+    line-height: 1;
+    border-radius: 25px;
+    margin-top: 0, 1vh;
+}
+
+.container {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 25px;
+    height: 120px;
+}
+
+.pizza-image {
+    height: 120px;
+    border-radius: 25px;
+}
+
+.pizza-ingr {
+    font-size: small;
+    font-style: italic;
+}
+

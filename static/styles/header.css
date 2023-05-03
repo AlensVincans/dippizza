@@ -1,0 +1,29 @@
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 20vh;
+    width: 100%;
+    text-align: center;
+    background: #cecece;
+    color: #000000;
+    font-size: 30px;
+}
+
+nav div {
+    width: 100%;
+}
+
+nav img {
+    height: 20vh;
+}
+
+nav .dropdown {
+    display: flex;
+    justify-content: left;
+}
+
+nav .brand-logo {
+    display: flex;
+    justify-content: right;
+}

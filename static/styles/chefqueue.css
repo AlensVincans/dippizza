@@ -1,0 +1,52 @@
+.stage {
+  text-align: center;
+  font-size: x-large;
+  margin: auto;
+  padding-bottom: 3%;
+  align-items: center;
+  margin-top: 1%;
+}
+
+.contents {
+  display: space-between;
+  margin: auto;
+  align-items: center;
+  float: left;
+
+  text-align: center;
+  border: 2px;
+  margin-left: 5%;
+  font-size: xx-large;
+  padding: 1%;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+}
+
+.ingredients {
+  float: right;
+  font-size: small;
+  align-items: center;
+  padding: 5px;
+  font-size: large;
+  width: 48%;
+  margin-top: auto;
+  text-align: right;
+  margin-right: 1%;
+}
+
+.order {
+  border: 2px solid #000000;
+  padding: 15px;
+  font-size: 30px;
+  padding-bottom: 8%;
+
+}
+
+.ordernr {
+  border: 3px;
+  padding: 1%;
+  text-align: center;
+  background-color: #FFFFFF;
+  float: left;
+  border-radius: 5px;
+}

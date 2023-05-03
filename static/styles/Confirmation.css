@@ -1,0 +1,15 @@
+.ConfirmPay{
+    text-align: center;
+    font-size: 500%;
+}
+
+.Goodbye{
+    text-align: center
+}
+
+.Goodbye {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }

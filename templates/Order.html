@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+{% block title %}<title>Order</title>{% endblock %}
+
+{% block css %}
+<link href="../static/styles/order.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+{% for id in products %}
+<div class="PizzaContainer">
+  <div class="grid-item1">{{products[id]["name"]}}</div>
+  <div class="grid-item2">{{products[id]["price"]}}$</div>
+  <div class="grid-item3">Quantity</div>
+  <div class="grid-item4">{{products[id]["qty"]}}</div>
+  <div class="grid-item5">Total:</div>
+  <div class="grid-item6">{{products[id]["qty"]*products[id]["price"]}}$</div>
+  <form method="post" action="/product/add/{{id}}" class="grid-item7">
+    <button type="submit" onclick="alert('Product added to order succesfully')" class="addremove">+</button>
+  </form>
+  <form method="post" action="/product/remove/{{id}}" class="grid-item8">
+    <button type="submit" onclick="alert('Product removed from order succesfully')" class="addremove">-</button>
+  </form>
+</div>
+{% endfor %}
+
+<div class="buttons">
+  <a href="{{url_for('menu')}}">
+    <button>Previous</button>
+  </a>
+
+  <form method="post" action="/order">
+    <button type="submit" onclick="alert('Order is purged')">Purge</button>
+  </form>
+
+  <a href="{{url_for('payment')}}">
+    <button>Next</button>
+  </a>
+</div>
+{% endblock %}
