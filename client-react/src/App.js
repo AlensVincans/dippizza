@@ -6,7 +6,7 @@ function App() {
   return(
   <>
  <Navibar />
- <div style={{ paddingTop: '20px' }}> {/*padding 20px from Navbar */}
+ <div style={{ paddingTop: '5px', margin: '20px' }}> {/*padding 20px from Navbar */}
  <Gridmenu />
  </div>
  </> 
