@@ -19,4 +19,4 @@ function EmptyCart() {
   );
 }
 
-export default EmptyCart;
+export  {EmptyCart}; // TAK DELAY !!
