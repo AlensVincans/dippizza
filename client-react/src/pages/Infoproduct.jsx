@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Row,
   Col,
@@ -9,13 +9,14 @@ import {
   Form,
   Collapse,
 } from "react-bootstrap";
-//import { useParams } from "react-router-dom";
+import { CustomContext } from "../components/ProductsContext";
 import imgPizza from "../pepperoni-pizza.jpg";
 import { useParams } from "react-router-dom";
 
 function Infoproduct() {
   const [info, setData] = useState([]);
   const { id } = useParams();
+  const { addToBacked = Function.prototype } = useContext(CustomContext);
 
   const [cheeseMenuOpen, setCheeseMenuOpen] = useState(false);
   const [salamiMenuOpen, setSalamiMenuOpen] = useState(false);
@@ -93,8 +94,8 @@ function Infoproduct() {
   return (
     <>
       <Container>
-        <Row className="justify-content-md-center g-4">
-          {info.map((item) => (
+        {info.map((item) => (
+          <Row className="justify-content-md-center g-4">
             <Col key={item.id} sm={6}>
               <Card>
                 <Image src={imgPizza} rounded />
@@ -112,158 +113,179 @@ function Infoproduct() {
                 </Card.Footer>
               </Card>
             </Col>
-          ))}
-          <Col sm={3}>
-            <Card border="primary" style={{ width: "25rem" }}>
-              <Card.Header>Order settings</Card.Header>
-              <Card.Body>
-                <Card.Title>Add Ingredients:</Card.Title>
-                <Card.Text>
-                  <Form>
-                    <Form.Check
-                      type="switch"
-                      id="custom-switch"
-                      label="Cheese"
-                      onChange={() => {
-                        setCheeseMenuOpen(!cheeseMenuOpen);
-                        if (cheeseMenuOpen) {
-                          setCheeseCount(0);
-                        }
-                      }}
-                    />
-                    <Collapse in={cheeseMenuOpen}>
-                      <Row>
-                        <Col>
+
+            <Col sm={3}>
+              <Card border="primary" style={{ width: "25rem" }}>
+                <Card.Header>Order settings</Card.Header>
+                <Card.Body>
+                  <Card.Title>Add Ingredients:</Card.Title>
+                  <Card.Text>
+                    <Form>
+                      <Form.Check
+                        type="switch"
+                        id="custom-switch"
+                        label="Cheese"
+                        onChange={() => {
+                          setCheeseMenuOpen(!cheeseMenuOpen);
+                          if (cheeseMenuOpen) {
+                            setCheeseCount(0);
+                          }
+                        }}
+                      />
+
+                      <Collapse in={cheeseMenuOpen}>
+                        <Row>
+                          <Col>
+                            <Button
+                              variant="danger"
+                              onClick={() => decrementCounter("cheese")}
+                            >
+                              -
+                            </Button>
+                          </Col>
+                          <Col>{cheeseCount}</Col>
+                          <Col>
+                            <Button
+                              variant="success"
+                              onClick={() => incrementCounter("cheese")}
+                            >
+                              +
+                            </Button>
+                          </Col>
+                          <Col>Price: 2$</Col>
+                        </Row>
+                      </Collapse>
+                      <Form.Check
+                        type="switch"
+                        id="custom-switch"
+                        label="Salami"
+                        onChange={() => {
+                          setSalamiMenuOpen(!salamiMenuOpen);
+                          if (salamiMenuOpen) {
+                            setSalamiCount(0);
+                          }
+                        }}
+                      />
+                      <Collapse in={salamiMenuOpen}>
+                        <Row>
+                          <Col>
+                            <Button
+                              variant="danger"
+                              onClick={() => decrementCounter("salami")}
+                            >
+                              -
+                            </Button>
+                          </Col>
+                          <Col>{salamiCount}</Col>
+                          <Col>
+                            <Button
+                              variant="success"
+                              onClick={() => incrementCounter("salami")}
+                            >
+                              +
+                            </Button>
+                          </Col>
+                        </Row>
+                      </Collapse>
+                      <Form.Check
+                        type="switch"
+                        id="custom-switch"
+                        label="Tomato"
+                        onChange={() => {
+                          setTomatoMenuOpen(!tomatoMenuOpen);
+                          if (tomatoMenuOpen) {
+                            setTomatoCount(0);
+                          }
+                        }}
+                      />
+                      <Collapse in={tomatoMenuOpen}>
+                        <Row>
+                          <Col>
+                            <Button
+                              variant="danger"
+                              onClick={() => decrementCounter("tomato")}
+                            >
+                              -
+                            </Button>
+                          </Col>
+                          <Col>{tomatoCount}</Col>
+                          <Col>
+                            <Button
+                              variant="success"
+                              onClick={() => incrementCounter("tomato")}
+                            >
+                              +
+                            </Button>
+                          </Col>
+                        </Row>
+                      </Collapse>
+                      <Form.Check
+                        type="switch"
+                        id="custom-switch"
+                        label="Ananias"
+                        onChange={() => {
+                          setAnaniasMenuOpen(!ananiasMenuOpen);
+                          if (ananiasMenuOpen) {
+                            setAnaniasCount(0);
+                          }
+                        }}
+                      />
+                      <Collapse in={ananiasMenuOpen}>
+                        <Row>
+                          <Col>
+                            <Button
+                              variant="danger"
+                              onClick={() => decrementCounter("ananias")}
+                            >
+                              -
+                            </Button>
+                          </Col>
+                          <Col>{ananiasCount}</Col>
+                          <Col>
+                            <Button
+                              variant="success"
+                              onClick={() => incrementCounter("ananias")}
+                            >
+                              +
+                            </Button>
+                          </Col>
+                        </Row>
+                      </Collapse>
+                      <Row className="justify-content-md-center">
+                        <Col xs="auto">Total: {total}$</Col>
+                      </Row>
+                      <Row className="justify-content-md-end">
+                        <Col xs="auto">
                           <Button
-                            variant="danger"
-                            onClick={() => decrementCounter("cheese")}
-                          >
-                            -
-                          </Button>
-                        </Col>
-                        <Col>{cheeseCount}</Col>
-                        <Col>
-                          <Button
+                            className="text-end"
                             variant="success"
-                            onClick={() => incrementCounter("cheese")}
+                            onClick={() =>
+                              addToBacked({
+                                id: item.id,
+                                name: item.name,
+                                price: total,
+                                dop_ingredients: [
+                                  {
+                                    cheeseMenuOpen: cheeseMenuOpen,
+                                    salamiMenuOpen: salamiMenuOpen,
+                                    tomatoMenuOpen: tomatoMenuOpen,
+                                    ananiasMenuOpen: ananiasMenuOpen,
+                                  },
+                                ],
+                              })
+                            }
                           >
-                            +
+                            Buy
                           </Button>
                         </Col>
                       </Row>
-                    </Collapse>
-                    <Form.Check
-                      type="switch"
-                      id="custom-switch"
-                      label="Salami"
-                      onChange={() => {
-                        setSalamiMenuOpen(!salamiMenuOpen);
-                        if (salamiMenuOpen) {
-                          setSalamiCount(0);
-                        }
-                      }}
-                    />
-                    <Collapse in={salamiMenuOpen}>
-                      <Row>
-                        <Col>
-                          <Button
-                            variant="danger"
-                            onClick={() => decrementCounter("salami")}
-                          >
-                            -
-                          </Button>
-                        </Col>
-                        <Col>{salamiCount}</Col>
-                        <Col>
-                          <Button
-                            variant="success"
-                            onClick={() => incrementCounter("salami")}
-                          >
-                            +
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Collapse>
-                    <Form.Check
-                      type="switch"
-                      id="custom-switch"
-                      label="Tomato"
-                      onChange={() => {
-                        setTomatoMenuOpen(!tomatoMenuOpen);
-                        if (tomatoMenuOpen) {
-                          setTomatoCount(0);
-                        }
-                      }}
-                    />
-                    <Collapse in={tomatoMenuOpen}>
-                      <Row>
-                        <Col>
-                          <Button
-                            variant="danger"
-                            onClick={() => decrementCounter("tomato")}
-                          >
-                            -
-                          </Button>
-                        </Col>
-                        <Col>{tomatoCount}</Col>
-                        <Col>
-                          <Button
-                            variant="success"
-                            onClick={() => incrementCounter("tomato")}
-                          >
-                            +
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Collapse>
-                    <Form.Check
-                      type="switch"
-                      id="custom-switch"
-                      label="Ananias"
-                      onChange={() => {
-                        setAnaniasMenuOpen(!ananiasMenuOpen);
-                        if (ananiasMenuOpen) {
-                          setAnaniasCount(0);
-                        }
-                      }}
-                    />
-                    <Collapse in={ananiasMenuOpen}>
-                      <Row>
-                        <Col>
-                          <Button
-                            variant="danger"
-                            onClick={() => decrementCounter("ananias")}
-                          >
-                            -
-                          </Button>
-                        </Col>
-                        <Col>{ananiasCount}</Col>
-                        <Col>
-                          <Button
-                            variant="success"
-                            onClick={() => incrementCounter("ananias")}
-                          >
-                            +
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Collapse>
-                    <Row className="justify-content-md-center">
-                      <Col xs="auto">Total: {total}$</Col>
-                    </Row>
-                    <Row className="justify-content-md-end">
-                      <Col xs="auto">
-                        <Button className="text-end" variant="success">
-                          Buy
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Form>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+                    </Form>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        ))}
       </Container>
     </>
   );

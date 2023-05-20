@@ -1,7 +1,7 @@
 from datetime import timedelta
 import os
 import sqlite3
-from flask import Flask, abort, redirect, request, jsonify
+from flask import Flask, request, jsonify
 
 
 app = Flask(__name__)
@@ -56,7 +56,6 @@ def productDetails(id):
 def food_drink(typeData):
     db = sqlite3.connect('flask-server\db\main_db.db')
     sql = db.cursor()
-    print(typeData)
     sql.execute("SELECT * FROM products WHERE food_drink = ?", (typeData,))
     result_pizza = sql.fetchall()
     db.commit()
@@ -64,62 +63,18 @@ def food_drink(typeData):
     formatted_result = [format_product_data(row) for row in result_pizza]
     return jsonify({"products": formatted_result})
 
-# payment page -> order is saved in the database with order status after being paid
-'''@app.route('/payment')
+@app.route('/create_user', methods=['POST'])
 def payment():
-    if not order or order == {"items": {}, "total": 0}:
-        return abort(405)
-    order_db.insert(order)
-    return render_template('payment.html')
-
-# GET _ /order -> preview of the current order
-@app.route('/order', methods=['GET'])
-def preview_order():
-    order = session.get("order")
-    if not order:
-        order = {"items": {}, "total": 0}
-        session["order"] = order
-
-    products = {}
-    for item_id in order["items"]:
-        item = findProductById(item_id)
-        if not item:
-            return abort(400)
-        products[item_id] = item
-        products[item_id]["qty"] = order["items"][item_id]
-    print(products)
-    return render_template('order.html', products=products)
-
-# POST _ /order -> delete(purge) current order
-@app.route('/order', methods=['POST'])
-def purge_order():
-    return redirect('/menu')
-
-
-def findProductById(id):
-    for table_name in ["pizzas", "toppings"]:
-        table = product_db.table(table_name)
-        product = table.get(Query().id == id)
-        if product:
-            return product
-    return None
-
-# POST _ /product/add/<product_id> -> add product with <product_id> to current order
-@app.route('/product/add/<product_id>', methods=["POST"])
-def add_to_order(product_id):
-    product = findProductById(product_id)
-    if not product:
-        return abort(404)
-    return redirect('/order')
-
-# POST _ /product/remove/<product_id> -> remove product with <product_id> from current order
-@app.route('/product/remove/<product_id>', methods=['POST'])
-def remove_from_order(product_id):
-    product = findProductById(product_id)
-    if not product:
-        return abort(404)
-    return redirect('/order')
-'''
+    first_name = request.json["first_name"]
+    last_name = request.json["last_name"]
+    mobile = request.json["mobile"]
+    email = request.json["email"]
+    db = sqlite3.connect('flask-server\db\main_db.db')
+    sql = db.cursor()
+    sql.execute("INSERT INTO users (first_name, last_name, mobile, email) VALUES (?, ?, ?, ?)", (first_name, last_name, mobile, email))
+    db.commit()
+    db.close()
+    return jsonify({"message": "Запись успешно создана"})
 
 
 if __name__ == "__main__":

@@ -2,3 +2,16 @@
   color: var(--color-active);
   cursor: default;
 }
+
+.linkColor {
+  color: rgb(251, 251, 251);
+  text-align: justify;
+  width: 50px;
+  text-decoration: none;
+
+}
+
+.bucketLinkColor{
+  color: rgb(251, 251, 251);
+  text-decoration: none;
+}

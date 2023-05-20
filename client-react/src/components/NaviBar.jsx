@@ -1,17 +1,20 @@
-import { React, useState, useContext } from "react";
-import { Container, Nav, Navbar, Badge, Button } from "react-bootstrap";
-import { Outlet } from "react-router-dom";
+import { React, useContext } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Outlet, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
 import logos from "../logo.svg";
-import bucket from "../bucket.svg";
+import { Cart } from "./Cart";
+import { CustomContext } from "./ProductsContext";
 
 function Navibar() {
+  const { order } = useContext(CustomContext);
+  // console.log(order);
   return (
     <>
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand>
             <img
               alt=""
               src={logos}
@@ -19,24 +22,20 @@ function Navibar() {
               height="30"
               className="d-inline-block align-top"
             />
-            Gallo
+            <Link to="/" className="linkColor">
+              Gallo
+            </Link>
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/food">Pizza</Nav.Link>
-            <Nav.Link href="/drink">Beverages</Nav.Link>
+            <Link to="/food" className="linkColor">
+              Pizza
+            </Link>
+            <Link to="/drink" className="linkColor">
+              Beverages
+            </Link>
           </Nav>
           <Nav>
-            <Button>
-              <img
-                alt=""
-                src={bucket}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />
-              <Badge bg="danger">9</Badge>
-              <span className="visually-hidden">unread messages</span>
-            </Button>
+            <Cart quality={order.length} />
           </Nav>
         </Container>
       </Navbar>

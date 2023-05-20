@@ -1,12 +1,13 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, Container, Row, Col, Image, Button } from "react-bootstrap";
+import { CustomContext } from "../components/ProductsContext";
 import imgPizza from "../pepperoni-pizza.jpg";
 
 function FoodDrink() {
   const [typeData, setTypeData] = useState([]);
   const { typeParam } = useParams();
-  console.log(typeParam);
+  const { addToBacked = Function.prototype } = useContext(CustomContext);
 
   useEffect(() => {
     fetch(`/food_drink/${typeParam}`)
@@ -36,7 +37,18 @@ function FoodDrink() {
                     <Col className="text-end">Price: {item.price}$</Col>
                   </Row>
                   <Row className="text-end">
-                    <Button variant="success">Buy</Button>
+                    <Button
+                      variant="success"
+                      onClick={() =>
+                        addToBacked({
+                          id: item.id,
+                          name: item.name,
+                          price: item.price,
+                        })
+                      }
+                    >
+                      Buy
+                    </Button>
                   </Row>
                 </Card.Body>
 

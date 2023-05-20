@@ -1,4 +1,4 @@
-import { Carousel, Row } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import React from "react";
 import imgPizza from "./pepperoni-pizza.jpg";
 

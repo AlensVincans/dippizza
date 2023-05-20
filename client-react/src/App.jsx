@@ -4,26 +4,32 @@ import Productpage from "./pages/Productpage.jsx";
 import LoginPage from "./pages/LoginForm.jsx";
 import Notfoundpage from "./pages/Notfoundpage.jsx";
 import Infoproduct from "./pages/Infoproduct.jsx";
-import Orders from "./pages/Orders.jsx";
-
+import { PaymentPage } from "./pages/Payment.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import FoodDrink from "./pages/FoodDrink.jsx";
+import { ProductsContext } from "./components/ProductsContext.jsx";
+import { BucketList } from "./pages/BucketList.jsx";
+import { OrderSuccessPage } from "./pages/OrderSuccess.jsx";
 
 function App() {
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navibar />}>
-            <Route index element={<Productpage />} />
-            <Route path="product/:id" element={<Infoproduct />} />
-            <Route path=":typeParam" element={<FoodDrink />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="*" element={<Notfoundpage />} />
-            <Route path="/Orders" element={<Orders />} />
-          </Route>
-        </Routes>
-      </Router>
+      <ProductsContext>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Navibar />}>
+              <Route index element={<Productpage />} />
+              <Route path="product/:id" element={<Infoproduct />} />
+              <Route path=":typeParam" element={<FoodDrink />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="*" element={<Notfoundpage />} />
+              <Route path="payment" element={<PaymentPage />} />
+              <Route path="bucket" element={<BucketList />} />
+              <Route path="order_success" element={<OrderSuccessPage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </ProductsContext>
     </>
   );
 }
