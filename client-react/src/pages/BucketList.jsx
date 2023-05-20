@@ -3,6 +3,7 @@ import { CustomContext } from "../components/ProductsContext";
 import { ListGroup } from "react-bootstrap";
 import { BucketItem } from "./BucketItem";
 import { Link } from "react-router-dom";
+import {EmptyCart} from './EmptyCart'
 import "../App.css";
 
 function BucketList() {
@@ -12,8 +13,14 @@ function BucketList() {
     return sum + element.price * element.quantity;
   }, 0);
 
+  if (order.length == 0 ) {
+   return  <EmptyCart/>  
+  }
+  else{
+
   return (
     <>
+
       <ListGroup as="ol" numbered>
         <BucketItem />
       </ListGroup>
@@ -29,7 +36,8 @@ function BucketList() {
         </ListGroup.Item>
       </ListGroup>
     </>
-  );
+  )
+  }
 }
 
 export { BucketList };
