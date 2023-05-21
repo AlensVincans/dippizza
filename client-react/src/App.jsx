@@ -11,6 +11,12 @@ import { ProductsContext } from "./components/ProductsContext.jsx";
 import { BucketList } from "./pages/BucketList.jsx";
 import { OrderSuccessPage } from "./pages/OrderSuccess.jsx";
 
+import {AdminPage} from "./pages/AdminPage.jsx";
+import {AddProduct} from "./pages/AddProduct.jsx"
+import {Orders} from "./pages/Orders.jsx"
+import {History} from "./pages/History.jsx"
+import {EditProduct} from "./pages/EditProduct.jsx"
+
 function App() {
   return (
     <>
@@ -26,6 +32,11 @@ function App() {
               <Route path="payment" element={<PaymentPage />} />
               <Route path="bucket" element={<BucketList />} />
               <Route path="order_success" element={<OrderSuccessPage />} />
+              <Route path="/AdminPage" element={<AdminPage />} />
+              <Route path="/AddProduct" element={<AddProduct />} />
+              <Route path="/Orders" element={<Orders />} />
+              <Route path="/History" element={<History />} />
+              <Route path="/EditProduct" element={<EditProduct />} />
             </Route>
           </Routes>
         </Router>

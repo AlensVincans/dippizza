@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-function AddProductForm() {
+function AddProduct() {
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productImage, setProductImage] = useState("");
@@ -77,4 +77,4 @@ function AddProductForm() {
   );
 }
 
-export default AddProductForm;
+export {AddProduct}
