@@ -31,10 +31,10 @@ function App() {
               <Route path="payment" element={<PaymentPage />} />
               <Route path="bucket" element={<BucketList />} />
               <Route path="order_success" element={<OrderSuccessPage />} />
-              <Route path="/AdminPage" element={<AdminPage />} />
-              <Route path="/AddProduct" element={<AddProduct />} />
-              <Route path="/Orders" element={<Orders />} />
-              <Route path="/ProductList" element={<ProductList />} />
+              <Route path="admin" element={<AdminPage />} />
+              <Route path="addProduct" element={<AddProduct />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="productList" element={<ProductList />} />
             </Route>
           </Routes>
         </Router>

@@ -10,9 +10,7 @@ function AddProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Здесь можно выполнить дополнительные действия при отправке формы, например, отправить данные на сервер
     console.log("Submitted:", productName, productPrice, productImage, productDescription, productCategory);
-    // Сбросить значения полей формы после отправки
     setProductName("");
     setProductPrice("");
     setProductImage("");
