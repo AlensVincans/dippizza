@@ -14,10 +14,7 @@ const AdminPage = () => {
             <Link to="/orders" className="btn btn-primary btn-block mb-5">
               Orders
             </Link>
-            <Link to="/history" className="btn btn-primary btn-block mb-5">
-              History
-            </Link>
-            <Link to="/EditProduct" className="btn btn-primary btn-block">
+            <Link to="/ProductList" className="btn btn-primary btn-block">
               Edit Product
             </Link>
           </Card>

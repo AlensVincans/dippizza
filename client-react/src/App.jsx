@@ -14,8 +14,7 @@ import { OrderSuccessPage } from "./pages/OrderSuccess.jsx";
 import {AdminPage} from "./pages/AdminPage.jsx";
 import {AddProduct} from "./pages/AddProduct.jsx"
 import {Orders} from "./pages/Orders.jsx"
-import {History} from "./pages/History.jsx"
-import {EditProduct} from "./pages/EditProduct.jsx"
+import {ProductList} from "./pages/ProductList.jsx"
 
 function App() {
   return (
@@ -35,8 +34,7 @@ function App() {
               <Route path="/AdminPage" element={<AdminPage />} />
               <Route path="/AddProduct" element={<AddProduct />} />
               <Route path="/Orders" element={<Orders />} />
-              <Route path="/History" element={<History />} />
-              <Route path="/EditProduct" element={<EditProduct />} />
+              <Route path="/ProductList" element={<ProductList />} />
             </Route>
           </Routes>
         </Router>
