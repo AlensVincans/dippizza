@@ -32,9 +32,9 @@ function App() {
               <Route path="bucket" element={<BucketList />} />
               <Route path="order_success" element={<OrderSuccessPage />} />
               <Route path="admin" element={<AdminPage />} />
-              <Route path="addProduct" element={<AddProduct />} />
+              <Route path="add_product" element={<AddProduct />} />
               <Route path="orders" element={<Orders />} />
-              <Route path="productList" element={<ProductList />} />
+              <Route path="product_list" element={<ProductList />} />
             </Route>
           </Routes>
         </Router>
