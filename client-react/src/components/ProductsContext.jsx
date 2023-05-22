@@ -21,7 +21,7 @@ export const ProductsContext = ({ children }) => {
   };
 
   value.addToBacked = (item) => {
-    dispatch({ type: "ADD_TO_BUCKET", payload: item });
+    dispatch({ type: "ADD_TO_BUCKET", payload: item }); //t
   };
 
   value.incQuantity = (itemId) => {
