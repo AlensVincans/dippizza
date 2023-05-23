@@ -11,31 +11,32 @@ import { ProductsContext } from "./components/ProductsContext.jsx";
 import { BucketList } from "./pages/BucketList.jsx";
 import { OrderSuccessPage } from "./pages/OrderSuccess.jsx";
 
-import {AdminPage} from "./pages/AdminPage.jsx";
-import {AddProduct} from "./pages/AddProduct.jsx"
-import {Orders} from "./pages/Orders.jsx"
-import {ProductList} from "./pages/ProductList.jsx"
+import { AdminPage } from "./pages/AdminPage.jsx";
+import { AddProduct } from "./pages/AddProduct.jsx";
+import { Orders } from "./pages/Orders.jsx";
+import { ProductList } from "./pages/ProductList.jsx";
+import Sidebar from "./components/SideBar.jsx";
 
 function App() {
   return (
     <>
       <ProductsContext>
         <Router>
+          <Navibar />
+          <Sidebar />
           <Routes>
-            <Route path="/" element={<Navibar />}>
-              <Route index element={<Productpage />} />
-              <Route path="product/:id" element={<Infoproduct />} />
-              <Route path=":typeParam" element={<FoodDrink />} />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="*" element={<Notfoundpage />} />
-              <Route path="payment" element={<PaymentPage />} />
-              <Route path="bucket" element={<BucketList />} />
-              <Route path="order_success" element={<OrderSuccessPage />} />
-              <Route path="admin" element={<AdminPage />} />
-              <Route path="add_product" element={<AddProduct />} />
-              <Route path="orders" element={<Orders />} />
-              <Route path="product_list" element={<ProductList />} />
-            </Route>
+            <Route path="/" element={<Productpage />} />
+            <Route path="product/:id" element={<Infoproduct />} />
+            <Route path=":typeParam" element={<FoodDrink />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="*" element={<Notfoundpage />} />
+            <Route path="payment" element={<PaymentPage />} />
+            <Route path="bucket" element={<BucketList />} />
+            <Route path="order_success" element={<OrderSuccessPage />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/add_product" element={<AddProduct />} />
+            <Route path="/admin/orders" element={<Orders />} />
+            <Route path="/admin/product_list" element={<ProductList />} />
           </Routes>
         </Router>
       </ProductsContext>
