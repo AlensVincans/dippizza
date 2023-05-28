@@ -24,6 +24,7 @@ export function reducer(state, { type, payload }) {
         const newItem = {
           ...payload,
           quantity: 1,
+          order_receipt_id: 0,
         };
         newOrder = [...state.order, newItem];
       } else {
@@ -68,6 +69,25 @@ export function reducer(state, { type, payload }) {
           return element;
         }),
       };
+    case "ADD_NEW_USER":
+      return {
+        ...state,
+        users: payload || [],
+      };
+    case "ORDER_RECEIPT_ID":
+      return {
+        ...state,
+        order: state.order.map((element) => {
+          if (element.id === payload.id) {
+            return {
+              ...element,
+              order_receipt_id: payload.order_receipt_id,
+            };
+          }
+          return element;
+        }),
+      };
+
     default:
       return state;
   }

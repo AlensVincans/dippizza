@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card, Button, Modal, Form } from 'react-bootstrap';
 
 const productsData = [
@@ -25,6 +25,8 @@ const ProductList = () => {
   const [products, setProducts] = useState(productsData);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedProduct, setEditedProduct] = useState(null);
+  const [newImage, setNewImage] = useState(null);
+  const fileInputRef = useRef(null);
 
   const deleteProduct = (productId) => {
     setProducts(products.filter(product => product.id !== productId));
@@ -32,6 +34,7 @@ const ProductList = () => {
 
   const openEditModal = (product) => {
     setEditedProduct(product);
+    setNewImage(null); // Clear the new image state
     setShowEditModal(true);
   };
 
@@ -43,23 +46,34 @@ const ProductList = () => {
   const saveEditedProduct = (editedData) => {
     setProducts(products.map(product => {
       if (product.id === editedProduct.id) {
-        return { ...product, ...editedData };
+        const updatedProduct = { ...product, ...editedData };
+        if (newImage) {
+          updatedProduct.image = URL.createObjectURL(newImage);
+        }
+        return updatedProduct;
       }
       return product;
     }));
     closeEditModal();
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setNewImage(file);
+  };
+
   return (
-    <div>
-      <h1>Product List</h1>
+    <div className="d-flex flex-column align-items-center">
+      <h1 className="text-center mt-4">Product List</h1> <br /> <br />
       {products.map(product => (
-        <Card key={product.id} style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={product.image} />
+        <Card key={product.id} style={{ width: '18rem' }} className="mb-4">
+          <Card.Img variant="top" src={editedProduct?.id === product.id ? (newImage ? URL.createObjectURL(newImage) : product.image) : product.image} />
           <Card.Body>
             <Card.Title>{product.name}</Card.Title>
-            <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
-            <Button variant="primary" onClick={() => openEditModal(product)}>Edit</Button>
+            <div className="d-flex justify-content-between">
+              <Button variant="primary" onClick={() => openEditModal(product)}>Edit</Button>
+              <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
+            </div>
           </Card.Body>
         </Card>
       ))}
@@ -74,9 +88,9 @@ const ProductList = () => {
               <Form.Group controlId="formImage">
                 <Form.Label>Image</Form.Label>
                 <Form.Control
-                  type="text"
-                  defaultValue={editedProduct.image}
-                  // onChange to update the edited product's image state
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleImageChange}
                 />
               </Form.Group>
               <Form.Group controlId="formName">
@@ -105,11 +119,7 @@ const ProductList = () => {
               </Form.Group>
               <Form.Group controlId="formCategory">
                 <Form.Label>Category</Form.Label>
-                <Form.Control
-                  as="select"
-                  defaultValue={editedProduct.category}
-
-                >
+                <Form.Control as="select" defaultValue={editedProduct.category}>
                   <option>Pizza</option>
                   <option>Beverage</option>
                 </Form.Control>
@@ -126,4 +136,4 @@ const ProductList = () => {
   );
 };
 
-export {ProductList}
+export { ProductList };

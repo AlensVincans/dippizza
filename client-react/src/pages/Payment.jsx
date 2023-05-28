@@ -4,14 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { CustomContext } from "../components/ProductsContext";
 
 const PaymentPage = () => {
+  const dateTime = Date.now();
   const [paymentMethod, setPaymentMethod] = useState("internet");
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     mobile: "",
     email: "",
+    order_receipt_id: dateTime,
   });
-  const { clearBucket } = useContext(CustomContext);
+  const {
+    clearBucket,
+    addUser = Function.prototype,
+    addOrderReceiptId,
+    order,
+  } = useContext(CustomContext);
 
   const navigate = useNavigate();
 
@@ -25,6 +32,15 @@ const PaymentPage = () => {
   const handleSubmits = (event) => {
     event.preventDefault();
 
+    console.log(order);
+
+    setFormData((prevData) => ({
+      ...prevData,
+      order_receipt_id: dateTime,
+    }));
+
+    addOrderReceiptId(formData, dateTime);
+
     fetch("/create_user", {
       method: "POST",
       headers: {
@@ -36,29 +52,44 @@ const PaymentPage = () => {
       .then((data) => {
         // Обработка ответа от сервера
         console.log(data);
+        addUser(formData);
+        navigate("/order_success");
       })
       .catch((error) => {
         // Обработка ошибки
         console.error(error);
       });
 
-    navigate("/order_success");
-    clearBucket();
+    fetch("/create_order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order_receipt: formData.order_receipt_id,
+        orders_data: order,
+        status_order_id: 2,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        clearBucket();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <Container className="d-flex justify-content-center align-items-center">
       <div>
         <h1>Payment Page</h1>
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <Form.Group controlId="formFirstName">
             <Form.Label>Name</Form.Label>
             <Form.Control

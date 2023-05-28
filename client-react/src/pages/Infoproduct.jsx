@@ -28,28 +28,42 @@ function Infoproduct() {
   const [tomatoCount, setTomatoCount] = useState(0);
   const [ananiasCount, setAnaniasCount] = useState(0);
 
+  const [totalIngredientsCount, setTotalIngredientsCount] = useState(0);
+
   useEffect(() => {
     fetch(`/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data.products);
-        //console.log(data);
       });
   }, [id]);
+
+  useEffect(() => {
+    const total = cheeseCount + salamiCount + tomatoCount + ananiasCount;
+    setTotalIngredientsCount(total);
+  }, [cheeseCount, salamiCount, tomatoCount, ananiasCount]);
 
   const incrementCounter = (menu) => {
     switch (menu) {
       case "cheese":
-        setCheeseCount(cheeseCount + 1);
+        if (cheeseCount < 3 && totalIngredientsCount < 10) {
+          setCheeseCount(cheeseCount + 1);
+        }
         break;
       case "salami":
-        setSalamiCount(salamiCount + 1);
+        if (salamiCount < 3 && totalIngredientsCount < 10) {
+          setSalamiCount(salamiCount + 1);
+        }
         break;
       case "tomato":
-        setTomatoCount(tomatoCount + 1);
+        if (tomatoCount < 3 && totalIngredientsCount < 10) {
+          setTomatoCount(tomatoCount + 1);
+        }
         break;
       case "ananias":
-        setAnaniasCount(ananiasCount + 1);
+        if (ananiasCount < 3 && totalIngredientsCount < 10) {
+          setAnaniasCount(ananiasCount + 1);
+        }
         break;
       default:
         break;
@@ -84,12 +98,13 @@ function Infoproduct() {
   };
 
   const calculateTotal = () => {
-    return cheeseCount + salamiCount + tomatoCount + ananiasCount;
+    return (
+      info.reduce((accumulator, item) => accumulator + item.price, 0) +
+      (cheeseCount + salamiCount + tomatoCount + ananiasCount) * 2
+    );
   };
 
-  const total =
-    info.reduce((accumulator, item) => accumulator + item.price, 0) +
-    calculateTotal();
+  const total = calculateTotal();
 
   return (
     <>
@@ -148,6 +163,9 @@ function Infoproduct() {
                             <Button
                               variant="success"
                               onClick={() => incrementCounter("cheese")}
+                              disabled={
+                                cheeseCount >= 3 || totalIngredientsCount >= 10
+                              }
                             >
                               +
                             </Button>
@@ -181,6 +199,9 @@ function Infoproduct() {
                             <Button
                               variant="success"
                               onClick={() => incrementCounter("salami")}
+                              disabled={
+                                salamiCount >= 3 || totalIngredientsCount >= 10
+                              }
                             >
                               +
                             </Button>
@@ -213,6 +234,9 @@ function Infoproduct() {
                             <Button
                               variant="success"
                               onClick={() => incrementCounter("tomato")}
+                              disabled={
+                                tomatoCount >= 3 || totalIngredientsCount >= 10
+                              }
                             >
                               +
                             </Button>
@@ -245,6 +269,9 @@ function Infoproduct() {
                             <Button
                               variant="success"
                               onClick={() => incrementCounter("ananias")}
+                              disabled={
+                                ananiasCount >= 3 || totalIngredientsCount >= 10
+                              }
                             >
                               +
                             </Button>
@@ -274,6 +301,7 @@ function Infoproduct() {
                                 ],
                               })
                             }
+                            disabled={totalIngredientsCount >= 10}
                           >
                             Buy
                           </Button>

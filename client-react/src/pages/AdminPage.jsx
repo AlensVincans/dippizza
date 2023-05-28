@@ -8,10 +8,6 @@ const AdminPage = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
-  return (
-    <h1>Welcome, admin!</h1>
-  );
 };
 
 export { AdminPage };

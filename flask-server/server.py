@@ -69,12 +69,31 @@ def payment():
     last_name = request.json["last_name"]
     mobile = request.json["mobile"]
     email = request.json["email"]
+    order_receipt_id = request.json["order_receipt_id"]
     db = sqlite3.connect('flask-server\db\main_db.db')
     sql = db.cursor()
-    sql.execute("INSERT INTO users (first_name, last_name, mobile, email) VALUES (?, ?, ?, ?)", (first_name, last_name, mobile, email))
+    sql.execute("INSERT INTO users (first_name, last_name, mobile, email, order_receipt_id) VALUES (?, ?, ?, ?, ?)", (first_name, last_name, mobile, email, order_receipt_id))
     db.commit()
     db.close()
     return jsonify({"message": "Запись успешно создана"})
+
+
+@app.route('/create_order', methods=['POST'])
+def create_order():
+    orders_data = request.json['orders_data']
+    order_receipt = request.json['order_receipt']
+    status_order_id = request.json['status_order_id']
+    #products_id = request.json['products_id']
+    
+
+    for order_data in orders_data:
+        db = sqlite3.connect('flask-server\db\main_db.db')
+        sql = db.cursor()
+        sql.execute("INSERT INTO orders (order_receipt, products_id, status_order_id) VALUES (?, ?, ?)", (order_receipt, order_data['id'], status_order_id))
+        db.commit()
+        db.close()  
+    return jsonify({"message": "Запись успешно создана"})
+
 
 
 if __name__ == "__main__":

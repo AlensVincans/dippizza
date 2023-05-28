@@ -36,6 +36,14 @@ export const ProductsContext = ({ children }) => {
     dispatch({ type: "SET_PRODUCTS", payload: data });
   };
 
+  value.addUser = (dataUser) => {
+    dispatch({ type: "ADD_NEW_USER", payload: dataUser });
+  };
+
+  value.addOrderReceiptId = (itemID) => {
+    dispatch({ type: "ORDER_RECEIPT_ID", payload: itemID });
+  };
+
   return (
     <CustomContext.Provider value={value}>{children}</CustomContext.Provider>
   );

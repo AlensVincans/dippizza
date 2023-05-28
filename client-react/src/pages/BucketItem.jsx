@@ -11,8 +11,6 @@ function BucketItem() {
     decQuantity = Function.prototype,
   } = useContext(CustomContext);
 
-  console.log(order);
-
   return (
     <>
       {order.map((item) => {
