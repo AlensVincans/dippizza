@@ -11,6 +11,7 @@ const PaymentPage = () => {
     last_name: "",
     mobile: "",
     email: "",
+    address: "",
     order_receipt_id: dateTime,
   });
   const {
@@ -31,6 +32,18 @@ const PaymentPage = () => {
 
   const handleSubmits = (event) => {
     event.preventDefault();
+
+    // Check if required fields are filled
+    if (
+      formData.first_name === "" ||
+      formData.last_name === "" ||
+      formData.mobile === "" ||
+      formData.email === "" ||
+      formData.address === ""
+    ) {
+      alert("Please fill in all required fields.");
+      return;
+    }
 
     console.log(order);
 
@@ -87,7 +100,7 @@ const PaymentPage = () => {
 
   return (
     <Container className="d-flex justify-content-center align-items-center">
-      <div>
+      <div style={{ width: "300px" }}>
         <h1>Payment Page</h1>
         <Form>
           <Form.Group controlId="formFirstName">
@@ -126,7 +139,7 @@ const PaymentPage = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formEmail" className="mb-5">
+          <Form.Group controlId="formEmail">
             <Form.Label>E-mail</Form.Label>
             <Form.Control
               type="email"
@@ -134,6 +147,19 @@ const PaymentPage = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formAddress" className="mb-4">
+            <Form.Label>Address</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Address"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              required
             />
           </Form.Group>
 
@@ -146,6 +172,7 @@ const PaymentPage = () => {
               value="internet"
               checked={paymentMethod === "internet"}
               onChange={handlePaymentMethodChange}
+              required
             />
             <Form.Check
               type="radio"
@@ -155,6 +182,7 @@ const PaymentPage = () => {
               checked={paymentMethod === "onDelivery"}
               onChange={handlePaymentMethodChange}
               className="mb-4"
+              required
             />
           </Form.Group>
 
@@ -170,8 +198,12 @@ const PaymentPage = () => {
               </Form.Group>
 
               <Form.Group controlId="formExpiration">
-                <Form.Label>Expire Date</Form.Label>
-                <Form.Control type="text" placeholder="MM/YY" required />
+                <Form.Label>Expiration Date</Form.Label>
+                <div className="d-flex">
+                  <Form.Control type="text" placeholder="MM" required />
+                  <div style={{ width: "1rem" }}></div> {/* Add space */}
+                  <Form.Control type="text" placeholder="YY" required />
+                </div>
               </Form.Group>
 
               <Form.Group controlId="formSecurityCode" className="mb-5">
