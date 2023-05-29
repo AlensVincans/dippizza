@@ -181,7 +181,7 @@ const PaymentPage = () => {
               value="onDelivery"
               checked={paymentMethod === "onDelivery"}
               onChange={handlePaymentMethodChange}
-              className="mb-4"
+              className="mb-3"
               required
             />
           </Form.Group>
