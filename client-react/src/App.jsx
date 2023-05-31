@@ -38,10 +38,10 @@ function App() {
 
               <Route element={<PrivateRoute roles={["admin", "moderator"]} />}>
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/admin/add_product" element={<AddProduct />} />
+                <Route path="/admin/orders" element={<Orders />} />
+                <Route path="/admin/product_list" element={<ProductList />} />
               </Route>
-              <Route path="/admin/add_product" element={<AddProduct />} />
-              <Route path="/admin/orders" element={<Orders />} />
-              <Route path="/admin/product_list" element={<ProductList />} />
               <Route path="*" element={<Notfoundpage />} />
             </Routes>
           </Router>
