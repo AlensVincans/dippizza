@@ -17,6 +17,17 @@ def format_product_data(row):
     }
     return product
 
+def format_operator_data(row):
+    operator = {
+        "id": row[0],
+        "name": row[1],
+        "login": row[2],
+        "pass": row[3],
+        "role": row[4],
+        "img": row[5]
+    }
+    return operator
+
 # menu page -> listing all the products
 @app.route('/products')
 def products():
@@ -94,6 +105,20 @@ def create_order():
         db.close()  
     return jsonify({"message": "Запись успешно создана"})
 
+@app.route('/set_operator', methods=['GET', 'POST'])
+def set_operator():
+    login = request.json['login']
+    password = request.json['pass']
+    db = sqlite3.connect('flask-server\db\main_db.db')
+    sql = db.cursor()
+    sql.execute("SELECT * FROM operators WHERE login = ? AND pass = ?", (login, password))
+    operatorData = sql.fetchall()
+    db.commit()
+    db.close()
+    if(operatorData != []):
+        formatted_result = [format_operator_data(row) for row in operatorData]
+        return jsonify({"operator": formatted_result})
+    return jsonify({"error": "User is not found"}) 
 
 
 if __name__ == "__main__":
