@@ -8,7 +8,7 @@ export const PrivateRoute = ({ roles = [] }) => {
 
   if (!operators) {
     // console.log(currentUser);
-    return <Navigate to="/login" />;
+    return <Navigate to="login" />;
   }
 
   if (roles && !roles.includes(operators?.[0].role)) {
