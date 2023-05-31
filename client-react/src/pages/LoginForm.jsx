@@ -90,7 +90,7 @@ function LoginPage() {
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     required
-                    type="text"
+                    type="password"
                     placeholder="password"
                     name="pass"
                     value={formData.pass}

@@ -6,10 +6,13 @@ import "../App.css";
 import logos from "../logo.svg";
 import { Cart } from "./Cart";
 import { CustomContext } from "./ProductsContext";
+import { AuthContext } from "./AuthContext";
+import { ManagerAuth } from "./ManagerAuth";
 
 function Navibar() {
   const { order } = useContext(CustomContext);
-  // console.log(order);
+  const { operators } = useContext(AuthContext);
+
   return (
     <>
       <Navbar bg="primary" variant="dark">
@@ -35,7 +38,12 @@ function Navibar() {
             </Link>
           </Nav>
           <Nav>
-            <Cart quality={order.length} />
+            {operators ? (
+              <ManagerAuth nameAuth={operators[0].name} />
+            ) : (
+              <Cart quality={order.length} />
+            )}
+            {/*   */}
           </Nav>
         </Container>
       </Navbar>

@@ -2,6 +2,7 @@ from datetime import timedelta
 import os
 import sqlite3
 from flask import Flask, request, jsonify
+import mail
 
 
 app = Flask(__name__)
@@ -102,7 +103,8 @@ def create_order():
         sql = db.cursor()
         sql.execute("INSERT INTO orders (order_receipt, products_id, status_order_id) VALUES (?, ?, ?)", (order_receipt, order_data['id'], status_order_id))
         db.commit()
-        db.close()  
+        db.close() 
+        mail.sendMail() 
     return jsonify({"message": "Запись успешно создана"})
 
 @app.route('/set_operator', methods=['GET', 'POST'])

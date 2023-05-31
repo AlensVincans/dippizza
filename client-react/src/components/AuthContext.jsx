@@ -4,6 +4,7 @@ import { reducerUsers } from "./ReducerUsers";
 export const AuthContext = createContext({
   operators: null,
   setOperator: () => {},
+  clearOperator: () => {},
 });
 
 const initialState = {
@@ -21,8 +22,12 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "SET_OPERATOR", payload: operatorData });
   };
 
+  const clearOperator = () => {
+    dispatch({ type: "CLEAR_OPERATOR", payload: null });
+  };
+
   return (
-    <AuthContext.Provider value={{ ...value, setOperator }}>
+    <AuthContext.Provider value={{ ...value, setOperator, clearOperator }}>
       {children}
     </AuthContext.Provider>
   );

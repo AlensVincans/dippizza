@@ -3,7 +3,12 @@ export function reducerUsers(state, { type, payload }) {
     case "SET_OPERATOR":
       return {
         ...state,
-        operators: payload || [],
+        operators: payload || null,
+      };
+    case "CLEAR_OPERATOR":
+      return {
+        ...state,
+        operators: payload,
       };
     default:
       return state;
