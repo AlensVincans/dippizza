@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ListGroup, Container, Row, Col } from "react-bootstrap/";
+import { ListGroup, Container, Row, Col, Button } from "react-bootstrap";
 
 function Orders() {
   const [adminOrders, setAdminOrders] = useState([]);
@@ -19,6 +19,8 @@ function Orders() {
         <Row
           key={adminOrder.id}
           className="justify-content-center align-items-center"
+          xs
+          lg="1"
           style={{ height: "15vh", fontSize: "20px" }}
         >
           <Col className="d-flex justify-content-center">
@@ -27,8 +29,14 @@ function Orders() {
               <ListGroup.Item>
                 {adminOrder.first_name} <br /> {adminOrder.last_name}
               </ListGroup.Item>
-              <ListGroup.Item>Order</ListGroup.Item>
-              <ListGroup.Item>Status</ListGroup.Item>
+              <ListGroup.Item>Order: {adminOrder.product_name}</ListGroup.Item>
+              <ListGroup.Item>Mobile: {adminOrder.mobile}</ListGroup.Item>
+              <ListGroup.Item>Address: {adminOrder.address}</ListGroup.Item>
+              <ListGroup.Item>№: {adminOrder.order_receipt}</ListGroup.Item>
+              <ListGroup.Item variant="warning">
+                Status: {adminOrder.status_name}
+                <Button>Check</Button>
+              </ListGroup.Item>
             </ListGroup>
           </Col>
         </Row>
