@@ -36,7 +36,7 @@ const AddProduct = () => {
         console.log(data);
         setFormData({
           ...formData,
-          food_drink: "",
+          food_drink: "pizza",
           ingredients: "",
           name: "",
           price: "",

@@ -16,6 +16,14 @@ export const ProductsContext = ({ children }) => {
     dispatch({ type: "CLEAR_BUCKET" });
   };
 
+  value.updateProduct = (updateProduct) => {
+    dispatch({ type: "UPDATE_PRODUCT", payload: updateProduct });
+  };
+
+  value.removeProduct = (itemId) => {
+    dispatch({ type: "REMOVE_PRODUCT", payload: { id: itemId } });
+  };
+
   value.removeBucket = (itemId) => {
     dispatch({ type: "REMOVE_BUCKET", payload: { id: itemId } });
   };

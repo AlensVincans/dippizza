@@ -5,6 +5,26 @@ export function reducer(state, { type, payload }) {
         ...state,
         productData: payload || [],
       };
+    case "REMOVE_PRODUCT":
+      return {
+        ...state,
+        productData: state.productData.filter(
+          (product) => product.id !== payload.id
+        ),
+      };
+    case "UPDATE_PRODUCT":
+      return {
+        ...state,
+        productData: state.productData.map((element) => {
+          if (element.id === payload.id) {
+            return {
+              ...element,
+              ...payload,
+            };
+          }
+          return element;
+        }),
+      };
     case "CLEAR_BUCKET":
       return {
         ...state,

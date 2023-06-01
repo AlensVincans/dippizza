@@ -1,40 +1,46 @@
-import React, { useState, useRef } from 'react';
-import { Card, Button, Modal, Form } from 'react-bootstrap';
-
-const productsData = [
-  {
-    id: 1,
-    name: 'Product 1',
-    image: 'product1.jpg',
-    price: 10.99,
-    description: 'This is product 1 description.',
-    category: 'Pizza'
-  },
-  {
-    id: 2,
-    name: 'Product 2',
-    image: 'product2.jpg',
-    price: 19.99,
-    description: 'This is product 2 description.',
-    category: 'Beverage'
-  },
-  // Add more product objects here
-];
+import React, { useState, useContext, useEffect } from "react";
+import { Card, Button, Modal, Form } from "react-bootstrap";
+import { CustomContext } from "../components/ProductsContext";
 
 const ProductList = () => {
-  const [products, setProducts] = useState(productsData);
+  const { setProducts, productData, removeProduct, updateProduct } =
+    useContext(CustomContext);
+
+  useEffect(() => {
+    fetch("/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.products);
+      });
+  }, []);
+
+  const handleButtonDelete = (itemId) => {
+    removeProduct(itemId);
+    fetch("/deleteProduct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id_product: itemId }),
+    })
+      .then((res) => res.json())
+      .then((info) => {
+        console.log(info);
+      });
+  };
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedProduct, setEditedProduct] = useState(null);
-  const [newImage, setNewImage] = useState(null);
-  const fileInputRef = useRef(null);
 
-  const deleteProduct = (productId) => {
-    setProducts(products.filter(product => product.id !== productId));
+  const handleInputChange = (event) => {
+    setEditedProduct({
+      ...editedProduct,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const openEditModal = (product) => {
     setEditedProduct(product);
-    setNewImage(null); // Clear the new image state
     setShowEditModal(true);
   };
 
@@ -44,40 +50,49 @@ const ProductList = () => {
   };
 
   const saveEditedProduct = (editedData) => {
-    setProducts(products.map(product => {
-      if (product.id === editedProduct.id) {
-        const updatedProduct = { ...product, ...editedData };
-        if (newImage) {
-          updatedProduct.image = URL.createObjectURL(newImage);
-        }
-        return updatedProduct;
-      }
-      return product;
-    }));
-    closeEditModal();
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setNewImage(file);
+    fetch("/updateProduct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: editedData.name,
+        ingredients: editedData.ingredients,
+        price: editedData.price,
+        food_drink: editedData.food_drink,
+        id: editedData.id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((info) => {
+        console.log(info);
+      });
+    setShowEditModal(false);
+    updateProduct(editedData);
   };
 
   return (
     <div className="d-flex flex-column align-items-center">
       <h1 className="text-center mt-4">Product List</h1> <br /> <br />
-      {products.map(product => (
-        <Card key={product.id} style={{ width: '18rem' }} className="mb-4">
-          <Card.Img variant="top" src={editedProduct?.id === product.id ? (newImage ? URL.createObjectURL(newImage) : product.image) : product.image} />
+      {productData.map((product) => (
+        <Card key={product.id} style={{ width: "18rem" }} className="mb-4">
+          <Card.Img variant="top" />
           <Card.Body>
             <Card.Title>{product.name}</Card.Title>
             <div className="d-flex justify-content-between">
-              <Button variant="primary" onClick={() => openEditModal(product)}>Edit</Button>
-              <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
+              <Button variant="primary" onClick={() => openEditModal(product)}>
+                Edit
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => handleButtonDelete(product.id)}
+              >
+                Delete
+              </Button>
             </div>
           </Card.Body>
         </Card>
       ))}
-
       <Modal show={showEditModal} onHide={closeEditModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Product</Modal.Title>
@@ -85,19 +100,17 @@ const ProductList = () => {
         <Modal.Body>
           {editedProduct && (
             <Form>
-              <Form.Group controlId="formImage">
+              {/*   <Form.Group controlId="formImage">
                 <Form.Label>Image</Form.Label>
-                <Form.Control
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageChange}
-                />
-              </Form.Group>
+                <Form.Control type="file" />
+              </Form.Group> */}
               <Form.Group controlId="formName">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={editedProduct.name}
+                  onChange={handleInputChange}
+                  name="name"
+                  value={editedProduct.name}
                   // onChange to update the edited product's name state
                 />
               </Form.Group>
@@ -105,7 +118,9 @@ const ProductList = () => {
                 <Form.Label>Price</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={editedProduct.price}
+                  onChange={handleInputChange}
+                  name="price"
+                  value={editedProduct.price}
                   // onChange to update the edited product's price state
                 />
               </Form.Group>
@@ -114,22 +129,36 @@ const ProductList = () => {
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  defaultValue={editedProduct.description}
+                  onChange={handleInputChange}
+                  name="ingredients"
+                  value={editedProduct.ingredients}
                 />
               </Form.Group>
               <Form.Group controlId="formCategory">
                 <Form.Label>Category</Form.Label>
-                <Form.Control as="select" defaultValue={editedProduct.category}>
-                  <option>Pizza</option>
-                  <option>Beverage</option>
+                <Form.Control
+                  as="select"
+                  onChange={handleInputChange}
+                  name="food_drink"
+                  defaultValue={editedProduct.food_drink}
+                >
+                  <option value={"food"}>Pizza</option>
+                  <option value={"drink"}>Beverage</option>
                 </Form.Control>
               </Form.Group>
             </Form>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeEditModal}>Close</Button>
-          <Button variant="primary" onClick={() => saveEditedProduct(editedProduct)}>Save Changes</Button>
+          <Button variant="secondary" onClick={closeEditModal}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => saveEditedProduct(editedProduct)}
+          >
+            Save Changes
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

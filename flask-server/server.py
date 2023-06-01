@@ -119,7 +119,7 @@ def create_order():
         sql.execute("INSERT INTO orders (order_receipt, products_id, status_order_id) VALUES (?, ?, ?)", (order_receipt, order_data['id'], status_order_id))
         db.commit()
         db.close() 
-        mail.sendMail() 
+    mail.sendMail() 
     return jsonify({"message": "Запись успешно создана"})
 
 @app.route('/set_operator', methods=['GET', 'POST'])
@@ -138,7 +138,7 @@ def set_operator():
     return jsonify({"error": "User is not found"}) 
 
 @app.route('/adminOrders', methods=["GET"])
-def adminOrders():
+def admin_orders():
     db = sqlite3.connect('flask-server\db\main_db.db')
     sql = db.cursor()
     sql.execute("SELECT orders.id, users.first_name, users.last_name, users.mobile, users.address,"+
@@ -155,7 +155,7 @@ def adminOrders():
     return jsonify({"orders": format_admin_orders_result})
 
 @app.route('/addProduct', methods=['POST'])
-def addProduct():
+def add_product():
     name = request.json["name"]
     ingredients = request.json["ingredients"]
     price = request.json["price"]
@@ -166,6 +166,34 @@ def addProduct():
     db.commit()
     db.close()
     return jsonify({"message": "Запись успешно создана"})
+
+    
+@app.route('/deleteProduct', methods=["POST"])
+def delete_product():
+    id_product = request.json["id_product"]
+
+    db = sqlite3.connect('flask-server\db\main_db.db')
+    sql = db.cursor()
+    sql.execute("DELETE FROM products WHERE id = ?", (id_product,))
+    db.commit()
+    db.close()
+    return jsonify({"message": "Запись успешно удалена"})
+
+@app.route('/updateProduct', methods=["POST"])
+def update_product():
+    id_update = request.json["id"]
+    name = request.json["name"]
+    ingredients = request.json["ingredients"]
+    price = request.json["price"]
+    food_drink = request.json["food_drink"]
+    
+    db = sqlite3.connect('flask-server\db\main_db.db')
+    sql = db.cursor()
+    sql.execute("UPDATE products SET name = ?, ingredients = ?, price = ?, food_drink = ? WHERE id = ?", 
+                (name, ingredients, price, food_drink, id_update))
+    db.commit()
+    db.close()
+    return jsonify({"message": "Запись успешно обновлена"})
 
 if __name__ == "__main__":
     app.run(debug=True)
