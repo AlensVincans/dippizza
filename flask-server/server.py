@@ -154,6 +154,18 @@ def adminOrders():
     format_admin_orders_result = [format_admin_orders(row) for row in result_ordersAdmin]
     return jsonify({"orders": format_admin_orders_result})
 
+@app.route('/addProduct', methods=['POST'])
+def addProduct():
+    name = request.json["name"]
+    ingredients = request.json["ingredients"]
+    price = request.json["price"]
+    food_drink = request.json["food_drink"]
+    db = sqlite3.connect('flask-server\db\main_db.db')
+    sql = db.cursor()
+    sql.execute("INSERT INTO products (name, ingredients, price, food_drink) VALUES (?, ?, ?, ?)", (name, ingredients, price, food_drink))
+    db.commit()
+    db.close()
+    return jsonify({"message": "Запись успешно создана"})
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,37 +1,51 @@
 import React, { useState } from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
-function AddProduct() {
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productImage, setProductImage] = useState(null);
-  const [productDescription, setProductDescription] = useState("");
-  const [productCategory, setProductCategory] = useState("Pizza");
+const AddProduct = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    ingredients: "",
+    price: "",
+    food_drink: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      "Submitted:",
-      productName,
-      productPrice,
-      productImage,
-      productDescription,
-      productCategory
-    );
-    setProductName("");
-    setProductPrice("");
-    setProductImage(null);
-    setProductDescription("");
-    setProductCategory("Pizza");
+    console.log(formData);
+
+    fetch("/addProduct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setProductImage(file);
-  };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70vh" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "70vh",
+      }}
+    >
       <Form style={{ width: "400px" }} onSubmit={handleSubmit}>
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
           <h2 style={{ fontWeight: "bold" }}>Add New Product</h2>
@@ -42,8 +56,9 @@ function AddProduct() {
           <Form.Control
             type="text"
             placeholder="Enter product name"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
+            value={formData.name}
+            onChange={handleChange}
+            name="name"
             style={{ backgroundColor: "#c7c7c7" }}
           />
         </Form.Group>
@@ -52,8 +67,9 @@ function AddProduct() {
           <Form.Control
             type="number"
             placeholder="Enter product price"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
+            value={formData.price}
+            onChange={handleChange}
+            name="price"
             style={{ backgroundColor: "#c7c7c7" }}
           />
         </Form.Group>
@@ -62,7 +78,7 @@ function AddProduct() {
           <Form.Control
             type="file"
             accept="image/*"
-            onChange={handleImageChange}
+            
           />
         </Form.Group>
         <Form.Group controlId="productDescription">
@@ -71,30 +87,31 @@ function AddProduct() {
             as="textarea"
             rows={3}
             placeholder="Enter product description"
-            value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
+            value={formData.ingredients}
+            onChange={handleChange}
+            name="ingredients"
             style={{ backgroundColor: "#c7c7c7" }}
           />
         </Form.Group>
         <Form.Group controlId="productCategory">
-          <Form.Label>Product Category</Form.Label>
-          <Form.Control
-            as="select"
-            value={productCategory}
-            onChange={(e) => setProductCategory(e.target.value)}
-          >
-            <option value="Pizza">Pizza</option>
-            <option value="Drink">Drink</option>
-          </Form.Control>
-          <br />
-        </Form.Group>
-        <Button variant="primary" type="submit"> 
+        <Form.Label>Product Category</Form.Label>
+        <Form.Control
+          as="select"
+          value={formData.food_drink}
+          onChange={handleChange}
+          name="food_drink" 
+        >
+          <option value="Pizza">Pizza</option>
+          <option value="Drink">Drink</option>
+        </Form.Control>
+        <br />
+      </Form.Group>
+        <Button variant="primary" type="submit">
           Add Product
         </Button>
       </Form>
     </div>
   );
-}
+};
 
 export { AddProduct };
-
