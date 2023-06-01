@@ -29,6 +29,21 @@ def format_operator_data(row):
     }
     return operator
 
+def format_admin_orders(row):
+    operator = {
+        "id": row[0],
+        "first_name": row[1],
+        "last_name": row[2],
+        "mobile": row[3],
+        "address": row[4],
+        "datetime": row[5],
+        "payment_type": row[6],
+        "order_receipt": row[7],
+        "status_name": row[8],
+        "product_name": row[9]
+    }
+    return operator    
+
 # menu page -> listing all the products
 @app.route('/products')
 def products():
@@ -121,6 +136,23 @@ def set_operator():
         formatted_result = [format_operator_data(row) for row in operatorData]
         return jsonify({"operator": formatted_result})
     return jsonify({"error": "User is not found"}) 
+
+@app.route('/adminOrders', methods=["GET"])
+def adminOrders():
+    db = sqlite3.connect('flask-server\db\main_db.db')
+    sql = db.cursor()
+    sql.execute("SELECT orders.id, users.first_name, users.last_name, users.mobile, users.address,"+
+                "orders.datetime_text, orders.payment_type_id, orders.order_receipt, "+
+                "status_order.status_name, products.name "+
+                "FROM (((orders "+
+                "INNER JOIN users ON users.order_receipt_id = orders.order_receipt) "+
+                "INNER JOIN status_order ON status_order.id = orders.status_order_id) "+
+                "INNER JOIN products ON products.id = orders.products_id)")
+    result_ordersAdmin = sql.fetchall()
+    db.commit()
+    db.close()
+    format_admin_orders_result = [format_admin_orders(row) for row in result_ordersAdmin]
+    return jsonify({"orders": format_admin_orders_result})
 
 
 if __name__ == "__main__":

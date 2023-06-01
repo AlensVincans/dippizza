@@ -1,15 +1,7 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from "react";
 
 const AdminPage = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  return <div>{}</div>;
+  return <div>Welcome Admin Page</div>;
 };
 
 export default AdminPage;

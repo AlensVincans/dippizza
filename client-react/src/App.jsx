@@ -26,7 +26,6 @@ function App() {
         <ProductsContext>
           <Router>
             <Navibar />
-            <Sidebar />
             <Routes>
               <Route path="/" element={<Productpage />} />
               <Route path="product/:id" element={<Infoproduct />} />
@@ -37,10 +36,12 @@ function App() {
               <Route path="login" element={<LoginPage />} />
 
               <Route element={<PrivateRoute roles={["admin", "moderator"]} />}>
-                <Route path="/admin" element={<AdminPage />} />
-                <Route path="/admin/add_product" element={<AddProduct />} />
-                <Route path="/admin/orders" element={<Orders />} />
-                <Route path="/admin/product_list" element={<ProductList />} />
+                <Route element={<Sidebar />}>
+                  <Route path="/admin" element={<AdminPage />} />
+                  <Route path="/admin/add_product" element={<AddProduct />} />
+                  <Route path="/admin/orders" element={<Orders />} />
+                  <Route path="/admin/product_list" element={<ProductList />} />
+                </Route>
               </Route>
               <Route path="*" element={<Notfoundpage />} />
             </Routes>

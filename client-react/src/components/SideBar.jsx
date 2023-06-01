@@ -1,19 +1,22 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
 
-const Sidebar = () => {
-  const location = useLocation();
+const Sidebar = ({ children }) => {
+  /*   const location = useLocation();
 
-  if (location.pathname !== '/admin') {
+  if (location.pathname !== "/admin") {
     return null;
   }
-
+ */
   return (
     <>
       <div className="d-flex">
-        <div className="sidebar bg-primary" style={{ width: '120px', height: '94vh', color: 'white' }}>
+        <div
+          className="sidebar bg-primary"
+          style={{ width: "120px", height: "94vh", color: "white" }}
+        >
           <ul className="nav flex-column">
             <li className="nav-item">
               <Link to="/admin/add_product" className="nav-link linkColor">
@@ -33,7 +36,7 @@ const Sidebar = () => {
           </ul>
         </div>
         <div className="d-flex align-items-center justify-content-center flex-grow-1">
-          <h2>Welcome Admin!</h2>
+          <Outlet />
         </div>
       </div>
     </>
@@ -41,4 +44,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
