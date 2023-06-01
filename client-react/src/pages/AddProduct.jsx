@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const AddProduct = () => {
@@ -6,7 +6,7 @@ const AddProduct = () => {
     name: "",
     ingredients: "",
     price: "",
-    food_drink: "",
+    food_drink: "pizza",
   });
 
   const handleChange = (e) => {
@@ -15,6 +15,10 @@ const AddProduct = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    console.log(formData.food_drink);
+  }, [formData.food_drink]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,12 +34,18 @@ const AddProduct = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setFormData({
+          ...formData,
+          food_drink: "",
+          ingredients: "",
+          name: "",
+          price: "",
+        });
       })
       .catch((error) => {
         console.error(error);
       });
   };
-
 
   return (
     <div
@@ -73,14 +83,14 @@ const AddProduct = () => {
             style={{ backgroundColor: "#c7c7c7" }}
           />
         </Form.Group>
-        <Form.Group controlId="productImage">
+        {/*  <Form.Group controlId="productImage">
           <Form.Label>Product Image</Form.Label>
           <Form.Control
             type="file"
             accept="image/*"
             
           />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group controlId="productDescription">
           <Form.Label>Product Description</Form.Label>
           <Form.Control
@@ -94,18 +104,18 @@ const AddProduct = () => {
           />
         </Form.Group>
         <Form.Group controlId="productCategory">
-        <Form.Label>Product Category</Form.Label>
-        <Form.Control
-          as="select"
-          value={formData.food_drink}
-          onChange={handleChange}
-          name="food_drink" 
-        >
-          <option value="Pizza">Pizza</option>
-          <option value="Drink">Drink</option>
-        </Form.Control>
-        <br />
-      </Form.Group>
+          <Form.Label>Product Category</Form.Label>
+          <Form.Control
+            as="select"
+            value={formData.food_drink}
+            onChange={handleChange}
+            name="food_drink"
+          >
+            <option value="pizza">Pizza</option>
+            <option value="drink">Drink</option>
+          </Form.Control>
+          <br />
+        </Form.Group>
         <Button variant="primary" type="submit">
           Add Product
         </Button>
