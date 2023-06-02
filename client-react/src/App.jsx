@@ -35,13 +35,16 @@ function App() {
               <Route path="order_success" element={<OrderSuccessPage />} />
               <Route path="login" element={<LoginPage />} />
 
-              <Route element={<PrivateRoute roles={["admin", "moderator"]} />}>
+              <Route element={<PrivateRoute roles={["admin"]} />}>
                 <Route element={<Sidebar />}>
                   <Route path="/admin" element={<AdminPage />} />
                   <Route path="/admin/add_product" element={<AddProduct />} />
                   <Route path="/admin/orders" element={<Orders />} />
                   <Route path="/admin/product_list" element={<ProductList />} />
                 </Route>
+              </Route>
+              <Route element={<PrivateRoute roles={["darbinieks"]} />}>
+                <Route path="/darb/orders" element={<Orders />} />
               </Route>
               <Route path="*" element={<Notfoundpage />} />
             </Routes>

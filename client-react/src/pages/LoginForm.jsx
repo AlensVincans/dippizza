@@ -101,7 +101,7 @@ function LoginPage() {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              <Button onClick={handleButton} href="/admin">
+              <Button onClick={handleButton} href="/">
                 Login
               </Button>
             </Form>

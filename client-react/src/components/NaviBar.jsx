@@ -36,6 +36,16 @@ function Navibar() {
             <Link to="/drink" className="linkColor">
               Beverages
             </Link>
+            {operators && operators[0].role === "darbinieks" ? (
+              <Link to="/darb/orders" className="linkColor mr-2">
+                Orders
+              </Link>
+            ) : null}
+            {operators && operators[0].role === "admin" ? (
+              <Link to="/admin" className="linkColor mr-2">
+                Admins
+              </Link>
+            ) : null}
           </Nav>
           <Nav>
             {operators ? (

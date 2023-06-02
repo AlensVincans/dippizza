@@ -195,5 +195,20 @@ def update_product():
     db.close()
     return jsonify({"message": "Запись успешно обновлена"})
 
+    
+@app.route('/updateOrder', methods=["POST"])
+def update_order():
+    id_update = request.json["id"]
+    status_order_id = request.json["status_order_id"]
+    
+    db = sqlite3.connect('flask-server\db\main_db.db')
+    sql = db.cursor()
+    sql.execute("UPDATE orders SET status_order_id = ? WHERE id = ?", 
+                (status_order_id,  id_update))
+    db.commit()
+    db.close()
+    return jsonify({"message": "Запись успешно обновлена"})
+
+
 if __name__ == "__main__":
     app.run(debug=True)

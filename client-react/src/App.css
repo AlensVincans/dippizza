@@ -5,8 +5,7 @@
 
 .linkColor {
   color: rgb(251, 251, 251);
-  text-align: justify;
-  width: 50px;
+  margin-left: 10px;
   text-decoration: none;
 
 }
