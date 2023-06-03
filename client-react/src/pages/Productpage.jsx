@@ -24,13 +24,13 @@ function Productpage() {
   }, []);
 
   return (
-    <div style={{ paddingTop: "5px" }}>
+    <div >
       <CarouselMain />
-      <div style={{ marginTop: "5px", margin: "300px"  }}>
+      <div style={{ marginTop: "1px", margin: "300px"  }}>
         <Outlet />
         <Row xs={1} sm={3} className="justify-content-md-center g-4">
           {productData.map((product) => (
-            <Col key={product.id} style={{ marginBottom: "10px" }}> {/* Updated marginBottom value */}
+            <Col key={product.id} style={{ marginBottom: "20px" }}>
               <Card>
                 <Card.Img variant="top" src={imgPizza} />
                 <Card.Body>
@@ -69,8 +69,7 @@ function Productpage() {
           fontSize: "20px",
           textAlign: "left",
           marginLeft: "300px",
-          marginRight: "300px",
-          marginBottom: "1px"  // Updated marginBottom value
+          marginRight: "300px"
         }}
       >
         <p>
