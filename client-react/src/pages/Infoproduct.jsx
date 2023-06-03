@@ -100,7 +100,7 @@ function Infoproduct() {
   const calculateTotal = () => {
     return (
       info.reduce((accumulator, item) => accumulator + item.price, 0) +
-      (cheeseCount + salamiCount + tomatoCount + ananiasCount) * 2
+      (cheeseCount + salamiCount + tomatoCount + ananiasCount) * 1
     );
   };
 
@@ -108,7 +108,7 @@ function Infoproduct() {
 
   return (
     <>
-      <Container>
+      <Container className="mt-5">
         {info.map((item) => (
           <Row className="justify-content-md-center g-4">
             <Col key={item.id} sm={6}>
@@ -120,7 +120,7 @@ function Infoproduct() {
                     {item.ingredients}
                   </Card.Text>
                   <Row>
-                    <Col className="text-end">Price: {item.price}$</Col>
+                    <Col className="text-end">Cena: {item.price}€</Col>
                   </Row>
                 </Card.Body>
                 <Card.Footer className="text-center">
@@ -139,7 +139,7 @@ function Infoproduct() {
                       <Form.Check
                         type="switch"
                         id="custom-switch"
-                        label="Cheese"
+                        label="Siers 50g"
                         onChange={() => {
                           setCheeseMenuOpen(!cheeseMenuOpen);
                           if (cheeseMenuOpen) {
@@ -170,13 +170,13 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
-                          <Col>Price: 2$</Col>
+                          <Col>Price: 1€</Col>
                         </Row>
                       </Collapse>
                       <Form.Check
                         type="switch"
                         id="custom-switch"
-                        label="Salami"
+                        label="Saļami 50g"
                         onChange={() => {
                           setSalamiMenuOpen(!salamiMenuOpen);
                           if (salamiMenuOpen) {
@@ -206,12 +206,13 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
+                          <Col>Price: 1€</Col>
                         </Row>
                       </Collapse>
                       <Form.Check
                         type="switch"
                         id="custom-switch"
-                        label="Tomato"
+                        label="Tomāts 50g"
                         onChange={() => {
                           setTomatoMenuOpen(!tomatoMenuOpen);
                           if (tomatoMenuOpen) {
@@ -241,12 +242,13 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
+                          <Col>Price: 1€</Col>
                         </Row>
                       </Collapse>
                       <Form.Check
                         type="switch"
                         id="custom-switch"
-                        label="Ananias"
+                        label="Ananāss 50g"
                         onChange={() => {
                           setAnaniasMenuOpen(!ananiasMenuOpen);
                           if (ananiasMenuOpen) {
@@ -276,6 +278,7 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
+                          <Col>Price: 1€</Col>
                         </Row>
                       </Collapse>
                       <Row className="justify-content-md-center">

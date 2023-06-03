@@ -23,7 +23,7 @@ function FoodDrink() {
       <Container>
         <Row className="justify-content-md-center g-4">
           {typeData.map((item) => (
-            <Col key={item.id} sm={6}>
+            <Col key={item.id} md={4}>
               <Card>
                 <Image src={imgPizza} rounded />
                 <Card.Body>
@@ -65,3 +65,4 @@ function FoodDrink() {
 }
 
 export default FoodDrink;
+

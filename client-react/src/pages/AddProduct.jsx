@@ -111,7 +111,7 @@ const AddProduct = () => {
             onChange={handleChange}
             name="food_drink"
           >
-            <option value="pizza">Pizza</option>
+            <option value="food">Pizza</option>
             <option value="drink">Drink</option>
           </Form.Control>
           <br />
