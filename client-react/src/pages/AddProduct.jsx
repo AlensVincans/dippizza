@@ -71,14 +71,14 @@ const AddProduct = () => {
     >
       <Form style={{ width: "400px" }} onSubmit={handleSubmit}>
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
-          <h2 style={{ fontWeight: "bold" }}>Add New Product</h2>
+          <h2 style={{ fontWeight: "bold" }}>Pievienojiet Jaunu Produktu</h2>
         </div>
         <br />
         <Form.Group controlId="productName">
-          <Form.Label>Product Name</Form.Label>
+          <Form.Label>Produkta nosaukums</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter product name"
+            placeholder="Ievadiet produkta nosaukumu"
             value={formData.name}
             onChange={handleChange}
             name="name"
@@ -89,7 +89,7 @@ const AddProduct = () => {
           <Form.Label>Product Price</Form.Label>
           <Form.Control
             type="number"
-            placeholder="Enter product price"
+            placeholder="Ievadiet produkta cenu"
             value={formData.price}
             onChange={handleChange}
             name="price"
@@ -97,7 +97,7 @@ const AddProduct = () => {
           />
         </Form.Group>
         <Form.Group controlId="productImage">
-          <Form.Label>Product Image</Form.Label>
+          <Form.Label>Produkta Attēls</Form.Label>
           <Form.Control
             type="file"
             onChange={handleChange}
@@ -106,11 +106,11 @@ const AddProduct = () => {
           />
         </Form.Group>
         <Form.Group controlId="productDescription">
-          <Form.Label>Product Description</Form.Label>
+          <Form.Label>Produkta apraksts</Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Enter product description"
+            placeholder="Ievadiet produkta apraksts"
             value={formData.ingredients}
             onChange={handleChange}
             name="ingredients"
@@ -118,20 +118,20 @@ const AddProduct = () => {
           />
         </Form.Group>
         <Form.Group controlId="productCategory">
-          <Form.Label>Product Category</Form.Label>
+          <Form.Label>Produkta kategorija</Form.Label>
           <Form.Control
             as="select"
             value={formData.food_drink}
             onChange={handleChange}
             name="food_drink"
           >
-            <option value="food">Pizza</option>
-            <option value="drink">Drink</option>
+            <option value="food">Pica</option>
+            <option value="drink">Dzeriens</option>
           </Form.Control>
           <br />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Add Product
+          Pievienot produktu
         </Button>
       </Form>
     </div>

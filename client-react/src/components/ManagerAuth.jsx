@@ -29,9 +29,9 @@ function ManagerAuth(props) {
     <>
       <Container>
         <Row md="auto" sm={3}>
-          <Col>Hello, {nameAuth}</Col>
+          <Col>Sveiki, {nameAuth}</Col>
           <Col onClick={handleButton}>
-            <OverlayInfo title="Click to logout" id="t-1">
+            <OverlayInfo title="Iziet" id="t-1">
               <BoxArrowInRight width={30} height={30} />
             </OverlayInfo>
           </Col>

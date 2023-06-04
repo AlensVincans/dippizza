@@ -13,18 +13,18 @@ const OrderSuccessPage = () => {
       <div>
         <Card className="text-center" style={{ width: "357px" }}>
           <Card.Header as="h5" className="bg-primary text-white">
-            Успешный заказ
+            Veiksmīgs pasūtījums
           </Card.Header>
           <Card.Body style={{ background: "#C7F6D3" }}>
             <Card.Text>
-              <strong>{users.first_name} cпасибо за покупку!</strong>
+              <strong>{users.first_name} paldies par pirkumu!</strong>
               <br />
-              Ваш заказ успешно оплачен и будет готов в ближайшее время.
+                Jūsu pasūtījums tiks saņemts un drīz būs gatavs.
               <br /> <br />
-              Номер вашего заказа: {users.order_receipt_id}.
+              Jūsu pasūtījuma numurs: {users.order_receipt_id}.
             </Card.Text>
             <Button variant="primary" href="/">
-              Вернуться на главную
+              Atpakaļ uz sākumlapu
             </Button>
           </Card.Body>
         </Card>

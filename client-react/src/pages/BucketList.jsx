@@ -27,9 +27,9 @@ function BucketList() {
               className="bucketLinkColor justify-content-center d-flex "
               to="/payment"
             >
-              Order form
+              Pasutīt
             </Link>
-            Total price: {totalPrice}$
+            Summa: {totalPrice}€
           </ListGroup.Item>
         </ListGroup>
       </>

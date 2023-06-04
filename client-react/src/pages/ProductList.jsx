@@ -80,7 +80,7 @@ const ProductList = () => {
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <h1 className="text-center mt-4">Product List</h1> <br /> <br />
+      <h1 className="text-center mt-4">Produkta Saraksts</h1> <br /> <br />
       {productData.map((product) => (
         <Card key={product.id} style={{ width: "18rem" }} className="mb-4">
           <Card.Img variant="top" />
@@ -88,13 +88,13 @@ const ProductList = () => {
             <Card.Title>{product.name}</Card.Title>
             <div className="d-flex justify-content-between">
               <Button variant="primary" onClick={() => openEditModal(product)}>
-                Edit
+                Rediģēt
               </Button>
               <Button
                 variant="danger"
                 onClick={() => handleButtonDelete(product.id)}
               >
-                Delete
+                Dzēst
               </Button>
             </div>
           </Card.Body>
@@ -102,13 +102,13 @@ const ProductList = () => {
       ))}
       <Modal show={showEditModal} onHide={closeEditModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Product</Modal.Title>
+          <Modal.Title>Rediģēt produktu</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {editedProduct && (
             <Form>
               <Form.Group controlId="formImage">
-                <Form.Label>Image</Form.Label>
+                <Form.Label>Attēls</Form.Label>
                 <Form.Control
                   type="file"
                   onChange={handleInputChange}
@@ -117,7 +117,7 @@ const ProductList = () => {
                 />
               </Form.Group>
               <Form.Group controlId="formName">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Nosaukums</Form.Label>
                 <Form.Control
                   type="text"
                   onChange={handleInputChange}
@@ -127,7 +127,7 @@ const ProductList = () => {
                 />
               </Form.Group>
               <Form.Group controlId="formPrice">
-                <Form.Label>Price</Form.Label>
+                <Form.Label>Cena</Form.Label>
                 <Form.Control
                   type="text"
                   onChange={handleInputChange}
@@ -137,7 +137,7 @@ const ProductList = () => {
                 />
               </Form.Group>
               <Form.Group controlId="formDescription">
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Apraksts</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
@@ -147,7 +147,7 @@ const ProductList = () => {
                 />
               </Form.Group>
               <Form.Group controlId="formCategory">
-                <Form.Label>Category</Form.Label>
+                <Form.Label>Kategorija</Form.Label>
                 <Form.Control
                   as="select"
                   onChange={handleInputChange}
@@ -163,13 +163,13 @@ const ProductList = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeEditModal}>
-            Close
+            Aizvert
           </Button>
           <Button
             variant="primary"
             onClick={() => saveEditedProduct(editedProduct)}
           >
-            Save Changes
+            Apstiprināt izmaiņas
           </Button>
         </Modal.Footer>
       </Modal>

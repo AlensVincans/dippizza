@@ -23,7 +23,7 @@ function BucketItem() {
           >
             <div className="ms-2 me-auto">
               <div className="fw-bold">{item.name}</div>
-              Price: {item.price}$
+              Cena: {item.price}€
             </div>
             <div className="ms-2">
               <Button
@@ -50,7 +50,7 @@ function BucketItem() {
               >
                 <XCircle color="red" size={30} />
               </span>
-              <div>Total: {itemPriceTotal}$</div>
+              <div>Cena: {itemPriceTotal}€</div>
             </div>
           </ListGroup.Item>
         );

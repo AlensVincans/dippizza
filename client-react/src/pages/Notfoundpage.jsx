@@ -5,7 +5,7 @@ function Notfoundpage()
 {
     return(
         <Row className="justify-content-md-center g-4" >
-            <Col md="auto"><h1>Page not Found</h1></Col>
+            <Col md="auto"><h1>Lapa nav atrasta</h1></Col>
         </Row>
     )
 }

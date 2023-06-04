@@ -131,9 +131,9 @@ function Infoproduct() {
 
             <Col sm={3}>
               <Card border="primary" style={{ width: "25rem" }}>
-                <Card.Header>Order settings</Card.Header>
+                <Card.Header>Pasūtījuma iestatījumi</Card.Header>
                 <Card.Body>
-                  <Card.Title>Add Ingredients:</Card.Title>
+                  <Card.Title>Pievienot Sastāvdaļas:</Card.Title>
                   <Card.Text>
                     <Form>
                       <Form.Check
@@ -170,7 +170,7 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
-                          <Col>Price: 1€</Col>
+                          <Col>Maksa: 1€</Col>
                         </Row>
                       </Collapse>
                       <Form.Check
@@ -206,7 +206,7 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
-                          <Col>Price: 1€</Col>
+                          <Col>Maksa: 1€</Col>
                         </Row>
                       </Collapse>
                       <Form.Check
@@ -242,7 +242,7 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
-                          <Col>Price: 1€</Col>
+                          <Col>Maksa: 1€</Col>
                         </Row>
                       </Collapse>
                       <Form.Check
@@ -278,11 +278,11 @@ function Infoproduct() {
                               +
                             </Button>
                           </Col>
-                          <Col>Price: 1€</Col>
+                          <Col>Maksa: 1€</Col>
                         </Row>
                       </Collapse>
                       <Row className="justify-content-md-center">
-                        <Col xs="auto">Total: {total}$</Col>
+                        <Col xs="auto">Kopā: {total}€</Col>
                       </Row>
                       <Row className="justify-content-md-end">
                         <Col xs="auto">
@@ -306,7 +306,7 @@ function Infoproduct() {
                             }
                             disabled={totalIngredientsCount >= 10}
                           >
-                            Buy
+                            Pievienot grozā
                           </Button>
                         </Col>
                       </Row>

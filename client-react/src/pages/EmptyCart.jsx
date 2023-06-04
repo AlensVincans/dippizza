@@ -8,10 +8,10 @@ function EmptyCart() {
     <Container>
       <Row>
         <Col md={12} className="text-center">
-          <h1>Your cart is empty</h1>
+          <h1>Jūsu grozs ir tukšs</h1>
           <img src={imgCart} alt="Корзина пуста" className="empty-cart-image" />
           <p className="empty-cart-message" > <br /> 
-            <Link to="/food" className="empty-cart-link">Add products to your cart</Link>
+            <Link to="/food" className="empty-cart-link">Pievinojiet produktus jūsu grozā</Link>
           </p>
         </Col>
       </Row>

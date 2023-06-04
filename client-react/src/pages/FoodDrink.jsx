@@ -34,7 +34,7 @@ function FoodDrink() {
                     {item.ingredients}
                   </Card.Text>
                   <Row>
-                    <Col className="text-end">Price: {item.price}$</Col>
+                    <Col className="text-end">Cena: {item.price}€</Col>
                   </Row>
                   <Row className="text-end">
                     <Button
@@ -47,7 +47,7 @@ function FoodDrink() {
                         })
                       }
                     >
-                      Buy
+                      Nopirkt
                     </Button>
                   </Row>
                 </Card.Body>

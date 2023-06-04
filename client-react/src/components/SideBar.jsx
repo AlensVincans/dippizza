@@ -20,17 +20,17 @@ const Sidebar = ({ children }) => {
           <ul className="nav flex-column">
             <li className="nav-item">
               <Link to="/admin/add_product" className="nav-link linkColor">
-                Add Product
+                Pievienot produktu
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/admin/orders" className="nav-link linkColor">
-                Orders
+                Pasūtījumi
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/admin/product_list" className="nav-link linkColor">
-                Edit Products
+                Rediģēt produktus
               </Link>
             </li>
           </ul>

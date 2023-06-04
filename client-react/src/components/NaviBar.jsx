@@ -31,19 +31,19 @@ function Navibar() {
           </Navbar.Brand>
           <Nav className="me-auto">
             <Link to="/food" className="linkColor">
-              Pizza
+              Picas
             </Link>
             <Link to="/drink" className="linkColor">
-              Beverages
+              Dzerieni
             </Link>
             {operators && operators[0].role === "darbinieks" ? (
               <Link to="/darb/orders" className="linkColor mr-2">
-                Orders
+                Pasūtījumi
               </Link>
             ) : null}
             {operators && operators[0].role === "admin" ? (
               <Link to="/admin" className="linkColor mr-2">
-                Admins
+                Administrators
               </Link>
             ) : null}
           </Nav>

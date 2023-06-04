@@ -101,13 +101,13 @@ const PaymentPage = () => {
   return (
     <Container className="d-flex justify-content-center align-items-center">
       <div style={{ width: "300px" }}>
-        <h1>Payment Page</h1>
+        <h1>Apmaksas Lapa</h1>
         <Form>
           <Form.Group controlId="formFirstName">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Vārds</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Name"
+              placeholder="Ievadiet vārdu"
               required
               name="first_name"
               value={formData.first_name}
@@ -116,10 +116,10 @@ const PaymentPage = () => {
           </Form.Group>
 
           <Form.Group controlId="formLastName">
-            <Form.Label>Surname</Form.Label>
+            <Form.Label>Uzvārds</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Surname"
+              placeholder="Ievadiet uzvārdu"
               required
               name="last_name"
               value={formData.last_name}
@@ -128,10 +128,10 @@ const PaymentPage = () => {
           </Form.Group>
 
           <Form.Group controlId="formPhoneNumber">
-            <Form.Label>Phone Number</Form.Label>
+            <Form.Label>Telefona numurs</Form.Label>
             <Form.Control
               type="tel"
-              placeholder="Enter Phone Number"
+              placeholder="Ievadiet telefona numuru"
               required
               name="mobile"
               value={formData.mobile}
@@ -140,10 +140,10 @@ const PaymentPage = () => {
           </Form.Group>
 
           <Form.Group controlId="formEmail">
-            <Form.Label>E-mail</Form.Label>
+            <Form.Label>E-pasts</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter E-mail"
+              placeholder="Ievadiet e-pastu"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
@@ -152,10 +152,10 @@ const PaymentPage = () => {
           </Form.Group>
 
           <Form.Group controlId="formAddress" className="mb-4">
-            <Form.Label>Address</Form.Label>
+            <Form.Label>Adrese</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Address"
+              placeholder="Ievadiet adresu"
               name="address"
               value={formData.address}
               onChange={handleInputChange}
@@ -164,10 +164,10 @@ const PaymentPage = () => {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Payment Method</Form.Label>
+            <Form.Label>Apmaksas veids</Form.Label>
             <Form.Check
               type="radio"
-              label="Online Payment"
+              label="Tiešsaistes maksājums"
               name="paymentMethod"
               value="internet"
               checked={paymentMethod === "internet"}
@@ -176,7 +176,7 @@ const PaymentPage = () => {
             />
             <Form.Check
               type="radio"
-              label="Cash Payment"
+              label="Skaidra nauda"
               name="paymentMethod"
               value="onDelivery"
               checked={paymentMethod === "onDelivery"}
@@ -189,16 +189,16 @@ const PaymentPage = () => {
           {paymentMethod === "internet" && (
             <div>
               <Form.Group controlId="formCardNumber">
-                <Form.Label>Card Number</Form.Label>
+                <Form.Label>Kartes numurs</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter Card Number"
+                  placeholder="Ievadiet kartes numuru"
                   required
                 />
               </Form.Group>
 
               <Form.Group controlId="formExpiration">
-                <Form.Label>Expiration Date</Form.Label>
+                <Form.Label>Derīguma termiņš</Form.Label>
                 <div className="d-flex">
                   <Form.Control type="text" placeholder="MM" required />
                   <div style={{ width: "1rem" }}></div> {/* Add space */}
@@ -207,7 +207,7 @@ const PaymentPage = () => {
               </Form.Group>
 
               <Form.Group controlId="formSecurityCode" className="mb-5">
-                <Form.Label>CVV Code</Form.Label>
+                <Form.Label>CVV Kods</Form.Label>
                 <Form.Control type="text" placeholder="CVV" required />
               </Form.Group>
             </div>
@@ -215,7 +215,7 @@ const PaymentPage = () => {
 
           <div className="d-flex justify-content-center">
             <Button variant="primary" type="submit" onClick={handleSubmits}>
-              Order
+              Apstiprināt
             </Button>
           </div>
         </Form>

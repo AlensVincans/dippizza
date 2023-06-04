@@ -60,7 +60,7 @@ function LoginPage() {
       <Row className="justify-content-center align-items-center g-4">
         <Col xs={5}>
           <Card border="primary" style={{ width: "35rem" }}>
-            <Card.Header className="text-center">Authentication</Card.Header>
+            <Card.Header className="text-center">Autorizācija</Card.Header>
             <Form noValidate validated={validate} /* onSubmit={handleSubmit} */>
               <Row className="mb-3">
                 <Form.Group
@@ -68,7 +68,7 @@ function LoginPage() {
                   md="7"
                   controlId="validationCustomUsername"
                 >
-                  <Form.Label>Username</Form.Label>
+                  <Form.Label>Lietotājvards</Form.Label>
                   <InputGroup hasValidation>
                     <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                     <Form.Control
@@ -80,14 +80,14 @@ function LoginPage() {
                       onChange={handleChange}
                     />
                     <Form.Control.Feedback>
-                      Username is a required field{" "}
+                      Lietotājvārds ir obligāts lauks{" "}
                     </Form.Control.Feedback>
                   </InputGroup>
                 </Form.Group>
               </Row>
               <Row className="mb-3">
                 <Form.Group as={Col} md="7" controlId="validationCustomPass">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>Parole</Form.Label>
                   <Form.Control
                     required
                     type="password"
@@ -97,12 +97,12 @@ function LoginPage() {
                     onChange={handleChange}
                   />
                   <Form.Control.Feedback>
-                    Password is a required field{" "}
+                    Parole ir obligāts lauks{" "}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Button onClick={handleButton} href="/">
-                Login
+                Pieslegties
               </Button>
             </Form>
           </Card>

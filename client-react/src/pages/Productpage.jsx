@@ -37,7 +37,7 @@ function Productpage() {
                   </Link>
                   <Card.Text>{product.ingredients}</Card.Text>
                   <Row>
-                    <Col className="text-end">Price: {product.price}$</Col>
+                    <Col className="text-end">Cena: {product.price}€</Col>
                   </Row>
                   <Row className="text-end">
                     <Button
@@ -50,7 +50,7 @@ function Productpage() {
                         })
                       }
                     >
-                      Buy
+                      Nopirkt
                     </Button>
                   </Row>
                 </Card.Body>
