@@ -6,14 +6,22 @@ const AddProduct = () => {
     name: "",
     ingredients: "",
     price: "",
-    food_drink: "pizza",
+    food_drink: "food",
+    image: null,
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "image") {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.files[0],
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   useEffect(() => {
@@ -24,22 +32,27 @@ const AddProduct = () => {
     e.preventDefault();
     console.log(formData);
 
+    const postData = new FormData();
+    postData.append("name", formData.name);
+    postData.append("ingredients", formData.ingredients);
+    postData.append("price", formData.price);
+    postData.append("food_drink", formData.food_drink);
+    postData.append("image", formData.image);
+
     fetch("/addProduct", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+      body: postData,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setFormData({
           ...formData,
-          food_drink: "pizza",
+          food_drink: "food",
           ingredients: "",
           name: "",
           price: "",
+          image: null,
         });
       })
       .catch((error) => {
@@ -83,14 +96,15 @@ const AddProduct = () => {
             style={{ backgroundColor: "#c7c7c7" }}
           />
         </Form.Group>
-        {/*  <Form.Group controlId="productImage">
+        <Form.Group controlId="productImage">
           <Form.Label>Product Image</Form.Label>
           <Form.Control
             type="file"
+            onChange={handleChange}
+            name="image"
             accept="image/*"
-            
           />
-        </Form.Group> */}
+        </Form.Group>
         <Form.Group controlId="productDescription">
           <Form.Label>Product Description</Form.Label>
           <Form.Control

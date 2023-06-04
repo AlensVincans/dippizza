@@ -2,10 +2,14 @@ from datetime import timedelta
 import os
 import sqlite3
 from flask import Flask, request, jsonify
+from werkzeug.utils import secure_filename
 import mail
 
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'client-react/public/uploads/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def format_product_data(row):
     product = {
@@ -14,7 +18,8 @@ def format_product_data(row):
         "ingredients": row[2],
         "price": row[3],
         "image": row[4],
-        "food_drink": row[5]
+        "food_drink": row[5],
+    
     }
     return product
 
@@ -156,13 +161,17 @@ def admin_orders():
 
 @app.route('/addProduct', methods=['POST'])
 def add_product():
-    name = request.json["name"]
-    ingredients = request.json["ingredients"]
-    price = request.json["price"]
-    food_drink = request.json["food_drink"]
+    name = request.form["name"]
+    ingredients = request.form["ingredients"]
+    price = request.form["price"]
+    food_drink = request.form["food_drink"]
+    file_img = request.files["image"]
+    if file_img:
+        filename = secure_filename(file_img.filename)
+        file_img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     db = sqlite3.connect('flask-server\db\main_db.db')
     sql = db.cursor()
-    sql.execute("INSERT INTO products (name, ingredients, price, food_drink) VALUES (?, ?, ?, ?)", (name, ingredients, price, food_drink))
+    sql.execute("INSERT INTO products (name, ingredients, price, food_drink, image) VALUES (?, ?, ?, ?, ?)", (name, ingredients, price, food_drink,  filename))
     db.commit()
     db.close()
     return jsonify({"message": "Запись успешно создана"})
@@ -181,16 +190,20 @@ def delete_product():
 
 @app.route('/updateProduct', methods=["POST"])
 def update_product():
-    id_update = request.json["id"]
-    name = request.json["name"]
-    ingredients = request.json["ingredients"]
-    price = request.json["price"]
-    food_drink = request.json["food_drink"]
+    id_update = request.form["id"]
+    name = request.form["name"]
+    ingredients = request.form["ingredients"]
+    price = request.form["price"]
+    food_drink = request.form["food_drink"]
+    file_img = request.files["image"]
+    if file_img:
+        filename = secure_filename(file_img.filename)
+        file_img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     
     db = sqlite3.connect('flask-server\db\main_db.db')
     sql = db.cursor()
-    sql.execute("UPDATE products SET name = ?, ingredients = ?, price = ?, food_drink = ? WHERE id = ?", 
-                (name, ingredients, price, food_drink, id_update))
+    sql.execute("UPDATE products SET name = ?, ingredients = ?, price = ?, food_drink = ?, image = ? WHERE id = ?", 
+                (name, ingredients, price, food_drink, filename,  id_update))
     db.commit()
     db.close()
     return jsonify({"message": "Запись успешно обновлена"})

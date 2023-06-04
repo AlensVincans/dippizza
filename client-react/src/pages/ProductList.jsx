@@ -33,10 +33,17 @@ const ProductList = () => {
   const [editedProduct, setEditedProduct] = useState(null);
 
   const handleInputChange = (event) => {
-    setEditedProduct({
-      ...editedProduct,
-      [event.target.name]: event.target.value,
-    });
+    if (event.target.name === "image") {
+      setEditedProduct({
+        ...editedProduct,
+        [event.target.name]: event.target.files[0],
+      });
+    } else {
+      setEditedProduct({
+        ...editedProduct,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
 
   const openEditModal = (product) => {
@@ -50,25 +57,25 @@ const ProductList = () => {
   };
 
   const saveEditedProduct = (editedData) => {
+    const postData = new FormData();
+    postData.append("id", editedData.id);
+    postData.append("name", editedData.name);
+    postData.append("ingredients", editedData.ingredients);
+    postData.append("price", editedData.price);
+    postData.append("food_drink", editedData.food_drink);
+    postData.append("image", editedData.image);
+
     fetch("/updateProduct", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: editedData.name,
-        ingredients: editedData.ingredients,
-        price: editedData.price,
-        food_drink: editedData.food_drink,
-        id: editedData.id,
-      }),
+      body: postData,
     })
       .then((res) => res.json())
       .then((info) => {
-        console.log(info);
+        //console.log(info);
       });
     setShowEditModal(false);
     updateProduct(editedData);
+    console.log(postData);
   };
 
   return (
@@ -100,10 +107,15 @@ const ProductList = () => {
         <Modal.Body>
           {editedProduct && (
             <Form>
-              {/*   <Form.Group controlId="formImage">
+              <Form.Group controlId="formImage">
                 <Form.Label>Image</Form.Label>
-                <Form.Control type="file" />
-              </Form.Group> */}
+                <Form.Control
+                  type="file"
+                  onChange={handleInputChange}
+                  name="image"
+                  accept="image/*"
+                />
+              </Form.Group>
               <Form.Group controlId="formName">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -140,7 +152,7 @@ const ProductList = () => {
                   as="select"
                   onChange={handleInputChange}
                   name="food_drink"
-                  defaultValue={editedProduct.food_drink}
+                  value={editedProduct.food_drink}
                 >
                   <option value={"food"}>Pizza</option>
                   <option value={"drink"}>Beverage</option>
