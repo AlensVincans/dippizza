@@ -22,9 +22,9 @@ function Productpage() {
   }, []);
 
   return (
-    <div>
-      <CarouselMain />
-      <div style={{ marginTop: "1px", margin: "300px" }}>
+    <div style={{ paddingTop: "15px"}}>
+    <CarouselMain /> 
+      <div style={{ margin: "120px" }}>
         <Outlet />
         <Row xs={1} sm={3} className="justify-content-md-center g-4">
           {productData.map((product) => (

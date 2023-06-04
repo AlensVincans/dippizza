@@ -25,7 +25,7 @@ function FoodDrink() {
           {typeData.map((item) => (
             <Col key={item.id} md={4}>
               <Card>
-                <Image src={imgPizza} rounded />
+                <Image src={`/uploads/${item.image}`} rounded />
                 <Card.Body>
                   <Link key={item.id} to={`/product/${item.id}`}>
                     {item.name}
