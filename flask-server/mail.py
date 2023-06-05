@@ -8,8 +8,8 @@ def sendMail():
     password = 'fmjylydbfwgrjjhm'
     receiver = 'alenvincans1@gmail.com'
 
-    subject = 'Order INFO'
-    body = """ Your Order has been successfully received """
+    subject = 'Informācija Par Pasutījumu'
+    body = """ Jūsu pasūtījums ir veiksmīgi saņemts un drīz būs gatavs! """
 
     em = EmailMessage()
     em['From'] = sender
