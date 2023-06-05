@@ -77,7 +77,7 @@ def info():
 def productDetails(id):
     db = sqlite3.connect('flask-server\db\main_db.db')
     sql = db.cursor()
-    sql.execute("SELECT * FROM products WHERE id = ?", id)
+    sql.execute("SELECT * FROM products WHERE id = ?", (id,))
     result_pizza = sql.fetchall()
     db.commit()
     db.close()
@@ -102,9 +102,10 @@ def payment():
     mobile = request.json["mobile"]
     email = request.json["email"]
     order_receipt_id = request.json["order_receipt_id"]
+    address = request.json["address"]
     db = sqlite3.connect('flask-server\db\main_db.db')
     sql = db.cursor()
-    sql.execute("INSERT INTO users (first_name, last_name, mobile, email, order_receipt_id) VALUES (?, ?, ?, ?, ?)", (first_name, last_name, mobile, email, order_receipt_id))
+    sql.execute("INSERT INTO users (first_name, last_name, mobile, email, order_receipt_id, address) VALUES (?, ?, ?, ?, ?, ?)", (first_name, last_name, mobile, email, order_receipt_id, address))
     db.commit()
     db.close()
     return jsonify({"message": "Запись успешно создана"})

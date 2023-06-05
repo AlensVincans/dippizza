@@ -54,8 +54,12 @@ function Orders() {
               <ListGroup.Item>
                 {adminOrder.first_name} <br /> {adminOrder.last_name}
               </ListGroup.Item>
-              <ListGroup.Item>Pasutijums: {adminOrder.product_name}</ListGroup.Item>
-              <ListGroup.Item>Telefona numurs: {adminOrder.mobile}</ListGroup.Item>
+              <ListGroup.Item>
+                Pasutijums: {adminOrder.product_name}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Telefona numurs: {adminOrder.mobile}
+              </ListGroup.Item>
               <ListGroup.Item>Adrese: {adminOrder.address}</ListGroup.Item>
               <ListGroup.Item>№: {adminOrder.order_receipt}</ListGroup.Item>
               <ListGroup.Item
@@ -64,9 +68,11 @@ function Orders() {
                 }
               >
                 Status: {adminOrder.status_name}
-                <Button onClick={() => saveEditedProduct(adminOrder)}>
-                  Gatavs
-                </Button>
+                {adminOrder.status_name === "waiting" ? (
+                  <Button onClick={() => saveEditedProduct(adminOrder)}>
+                    Gatavs
+                  </Button>
+                ) : null}
               </ListGroup.Item>
             </ListGroup>
           </Col>
