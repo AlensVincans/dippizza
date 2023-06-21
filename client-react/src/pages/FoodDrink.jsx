@@ -2,7 +2,6 @@ import { React, useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, Container, Row, Col, Image, Button } from "react-bootstrap";
 import { CustomContext } from "../components/ProductsContext";
-import imgPizza from "../pepperoni-pizza.jpg";
 
 function FoodDrink() {
   const [typeData, setTypeData] = useState([]);

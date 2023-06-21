@@ -8,9 +8,11 @@ import mail
 
 app = Flask(__name__)
 
+#Konfigure attēlu glabāšanu mapē
 UPLOAD_FOLDER = 'client-react/public/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# Funkcija, lai formatēt produkta datus
 def format_product_data(row):
     product = {
         "id": row[0],
@@ -23,6 +25,7 @@ def format_product_data(row):
     }
     return product
 
+# Funkcija, lai formatētu operatora datus
 def format_operator_data(row):
     operator = {
         "id": row[0],
@@ -34,6 +37,7 @@ def format_operator_data(row):
     }
     return operator
 
+# Funkcija, lai formatētu administratora pasūtījumus
 def format_admin_orders(row):
     operator = {
         "id": row[0],
@@ -49,7 +53,7 @@ def format_admin_orders(row):
     }
     return operator    
 
-# menu page -> listing all the products
+# Maršruts, lai iegūtu visus produktus
 @app.route('/products')
 def products():
     db = sqlite3.connect('flask-server\db\main_db.db')
@@ -61,18 +65,7 @@ def products():
     formatted_result = [format_product_data(row) for row in result_pizza]
     return jsonify({"products": formatted_result})  
 
-
-@app.route('/info', methods=['POST'])
-def info():
-    data = request.json['id']
-    db = sqlite3.connect('flask-server\db\main_db.db')
-    sql = db.cursor()
-    sql.execute("SELECT * FROM products WHERE id = ?", data)
-    result_pizza = sql.fetchall()
-    db.commit()
-    db.close()
-    return {"result": result_pizza}
-
+# Maršruts, lai iegūtu informāciju par produktu pēc ID
 @app.route('/products/<id>', methods=['GET'])
 def productDetails(id):
     db = sqlite3.connect('flask-server\db\main_db.db')
@@ -84,6 +77,7 @@ def productDetails(id):
     formatted_result = [format_product_data(row) for row in result_pizza]
     return jsonify({"products": formatted_result})
 
+# Maršruts, lai iegūtu produktus pēc picas / dzērienu kategorīja
 @app.route('/food_drink/<typeData>', methods=['GET'])
 def food_drink(typeData):
     db = sqlite3.connect('flask-server\db\main_db.db')
@@ -95,6 +89,7 @@ def food_drink(typeData):
     formatted_result = [format_product_data(row) for row in result_pizza]
     return jsonify({"products": formatted_result})
 
+# Maršruts, lai izveidotu lietotāju
 @app.route('/create_user', methods=['POST'])
 def payment():
     first_name = request.json["first_name"]
@@ -108,15 +103,14 @@ def payment():
     sql.execute("INSERT INTO users (first_name, last_name, mobile, email, order_receipt_id, address) VALUES (?, ?, ?, ?, ?, ?)", (first_name, last_name, mobile, email, order_receipt_id, address))
     db.commit()
     db.close()
-    return jsonify({"message": "Запись успешно создана"})
+    return jsonify({"message": "Ieraksts ir veiksmīgi saglabāts"})
 
-
+# Maršruts, lai izveidotu pasūtījumu
 @app.route('/create_order', methods=['POST'])
 def create_order():
     orders_data = request.json['orders_data']
     order_receipt = request.json['order_receipt']
     status_order_id = request.json['status_order_id']
-    #products_id = request.json['products_id']
     
 
     for order_data in orders_data:
@@ -125,9 +119,10 @@ def create_order():
         sql.execute("INSERT INTO orders (order_receipt, products_id, status_order_id) VALUES (?, ?, ?)", (order_receipt, order_data['id'], status_order_id))
         db.commit()
         db.close() 
-    mail.sendMail() 
-    return jsonify({"message": "Запись успешно создана"})
+    mail.sendMail() #e-pasta modulis ir definēts cita faila
+    return jsonify({"message": "Ieraksts ir veiksmīgi saglabāts"})
 
+# Maršruts, lai pieslēgt operatoru
 @app.route('/set_operator', methods=['GET', 'POST'])
 def set_operator():
     login = request.json['login']
@@ -141,8 +136,9 @@ def set_operator():
     if(operatorData != []):
         formatted_result = [format_operator_data(row) for row in operatorData]
         return jsonify({"operator": formatted_result})
-    return jsonify({"error": "User is not found"}) 
+    return jsonify({"error": "Lietotājs nav atrasts"}) 
 
+# Maršruts, lai saņemt pasūtījumus
 @app.route('/adminOrders', methods=["GET"])
 def admin_orders():
     db = sqlite3.connect('flask-server\db\main_db.db')
@@ -160,6 +156,7 @@ def admin_orders():
     format_admin_orders_result = [format_admin_orders(row) for row in result_ordersAdmin]
     return jsonify({"orders": format_admin_orders_result})
 
+# Maršruts, lai pievienotu produktu
 @app.route('/addProduct', methods=['POST'])
 def add_product():
     name = request.form["name"]
@@ -175,9 +172,9 @@ def add_product():
     sql.execute("INSERT INTO products (name, ingredients, price, food_drink, image) VALUES (?, ?, ?, ?, ?)", (name, ingredients, price, food_drink,  filename))
     db.commit()
     db.close()
-    return jsonify({"message": "Запись успешно создана"})
+    return jsonify({"message": "Ieraksts ir veiksmīgi saglabāts"})
 
-    
+# Maršruts, lai dzēst produktu    
 @app.route('/deleteProduct', methods=["POST"])
 def delete_product():
     id_product = request.json["id_product"]
@@ -187,8 +184,9 @@ def delete_product():
     sql.execute("DELETE FROM products WHERE id = ?", (id_product,))
     db.commit()
     db.close()
-    return jsonify({"message": "Запись успешно удалена"})
+    return jsonify({"message": "Ieraksts ir veiksmīgi dzēsts"})
 
+# Maršruts, lai rediģēt produktu
 @app.route('/updateProduct', methods=["POST"])
 def update_product():
     id_update = request.form["id"]
@@ -207,9 +205,9 @@ def update_product():
                 (name, ingredients, price, food_drink, filename,  id_update))
     db.commit()
     db.close()
-    return jsonify({"message": "Запись успешно обновлена"})
+    return jsonify({"message": "Ieraksts ir veiksmīgi atjaunota"})
 
-    
+# Maršruts, lai mainīt pasūtījuma statusu   
 @app.route('/updateOrder', methods=["POST"])
 def update_order():
     id_update = request.json["id"]
@@ -221,8 +219,8 @@ def update_order():
                 (status_order_id,  id_update))
     db.commit()
     db.close()
-    return jsonify({"message": "Запись успешно обновлена"})
+    return jsonify({"message": "Ieraksts ir veiksmīgi atjaunota"})
 
-
+# Palaiž "Flask" serveri
 if __name__ == "__main__":
     app.run(debug=True)

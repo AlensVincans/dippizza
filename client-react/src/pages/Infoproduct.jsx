@@ -136,155 +136,166 @@ function Infoproduct() {
                     <Card.Title>Pievienot Sastāvdaļas:</Card.Title>
                     <Card.Text>
                       <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label="Siers 50g"
-                          onChange={() => {
-                            setCheeseMenuOpen(!cheeseMenuOpen);
-                            if (cheeseMenuOpen) {
-                              setCheeseCount(0);
-                            }
-                          }}
-                        />
+                        {item.food_drink === "drink" ? (
+                          <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            label="Sastāvdaļas nav pieejamas"
+                            disabled
+                          />
+                        ) : (
+                          <>
+                            <Form.Check
+                              type="switch"
+                              id="custom-switch"
+                              label="Siers 50g"
+                              onChange={() => {
+                                setCheeseMenuOpen(!cheeseMenuOpen);
+                                if (cheeseMenuOpen) {
+                                  setCheeseCount(0);
+                                }
+                              }}
+                            />
 
-                        <Collapse in={cheeseMenuOpen}>
-                          <Row>
-                            <Col>
-                              <Button
-                                variant="danger"
-                                onClick={() => decrementCounter("cheese")}
-                              >
-                                -
-                              </Button>
-                            </Col>
-                            <Col>{cheeseCount}</Col>
-                            <Col>
-                              <Button
-                                variant="success"
-                                onClick={() => incrementCounter("cheese")}
-                                disabled={
-                                  cheeseCount >= 3 ||
-                                  totalIngredientsCount >= 10
+                            <Collapse in={cheeseMenuOpen}>
+                              <Row>
+                                <Col>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => decrementCounter("cheese")}
+                                  >
+                                    -
+                                  </Button>
+                                </Col>
+                                <Col>{cheeseCount}</Col>
+                                <Col>
+                                  <Button
+                                    variant="success"
+                                    onClick={() => incrementCounter("cheese")}
+                                    disabled={
+                                      cheeseCount >= 3 ||
+                                      totalIngredientsCount >= 10
+                                    }
+                                  >
+                                    +
+                                  </Button>
+                                </Col>
+                                <Col>Maksa: 1€</Col>
+                              </Row>
+                            </Collapse>
+                            <Form.Check
+                              type="switch"
+                              id="custom-switch"
+                              label="Saļami 50g"
+                              onChange={() => {
+                                setSalamiMenuOpen(!salamiMenuOpen);
+                                if (salamiMenuOpen) {
+                                  setSalamiCount(0);
                                 }
-                              >
-                                +
-                              </Button>
-                            </Col>
-                            <Col>Maksa: 1€</Col>
-                          </Row>
-                        </Collapse>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label="Saļami 50g"
-                          onChange={() => {
-                            setSalamiMenuOpen(!salamiMenuOpen);
-                            if (salamiMenuOpen) {
-                              setSalamiCount(0);
-                            }
-                          }}
-                        />
-                        <Collapse in={salamiMenuOpen}>
-                          <Row>
-                            <Col>
-                              <Button
-                                variant="danger"
-                                onClick={() => decrementCounter("salami")}
-                              >
-                                -
-                              </Button>
-                            </Col>
-                            <Col>{salamiCount}</Col>
-                            <Col>
-                              <Button
-                                variant="success"
-                                onClick={() => incrementCounter("salami")}
-                                disabled={
-                                  salamiCount >= 3 ||
-                                  totalIngredientsCount >= 10
+                              }}
+                            />
+                            <Collapse in={salamiMenuOpen}>
+                              <Row>
+                                <Col>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => decrementCounter("salami")}
+                                  >
+                                    -
+                                  </Button>
+                                </Col>
+                                <Col>{salamiCount}</Col>
+                                <Col>
+                                  <Button
+                                    variant="success"
+                                    onClick={() => incrementCounter("salami")}
+                                    disabled={
+                                      salamiCount >= 3 ||
+                                      totalIngredientsCount >= 10
+                                    }
+                                  >
+                                    +
+                                  </Button>
+                                </Col>
+                                <Col>Maksa: 1€</Col>
+                              </Row>
+                            </Collapse>
+                            <Form.Check
+                              type="switch"
+                              id="custom-switch"
+                              label="Tomāts 50g"
+                              onChange={() => {
+                                setTomatoMenuOpen(!tomatoMenuOpen);
+                                if (tomatoMenuOpen) {
+                                  setTomatoCount(0);
                                 }
-                              >
-                                +
-                              </Button>
-                            </Col>
-                            <Col>Maksa: 1€</Col>
-                          </Row>
-                        </Collapse>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label="Tomāts 50g"
-                          onChange={() => {
-                            setTomatoMenuOpen(!tomatoMenuOpen);
-                            if (tomatoMenuOpen) {
-                              setTomatoCount(0);
-                            }
-                          }}
-                        />
-                        <Collapse in={tomatoMenuOpen}>
-                          <Row>
-                            <Col>
-                              <Button
-                                variant="danger"
-                                onClick={() => decrementCounter("tomato")}
-                              >
-                                -
-                              </Button>
-                            </Col>
-                            <Col>{tomatoCount}</Col>
-                            <Col>
-                              <Button
-                                variant="success"
-                                onClick={() => incrementCounter("tomato")}
-                                disabled={
-                                  tomatoCount >= 3 ||
-                                  totalIngredientsCount >= 10
+                              }}
+                            />
+                            <Collapse in={tomatoMenuOpen}>
+                              <Row>
+                                <Col>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => decrementCounter("tomato")}
+                                  >
+                                    -
+                                  </Button>
+                                </Col>
+                                <Col>{tomatoCount}</Col>
+                                <Col>
+                                  <Button
+                                    variant="success"
+                                    onClick={() => incrementCounter("tomato")}
+                                    disabled={
+                                      tomatoCount >= 3 ||
+                                      totalIngredientsCount >= 10
+                                    }
+                                  >
+                                    +
+                                  </Button>
+                                </Col>
+                                <Col>Maksa: 1€</Col>
+                              </Row>
+                            </Collapse>
+                            <Form.Check
+                              type="switch"
+                              id="custom-switch"
+                              label="Ananāss 50g"
+                              onChange={() => {
+                                setAnaniasMenuOpen(!ananiasMenuOpen);
+                                if (ananiasMenuOpen) {
+                                  setAnaniasCount(0);
                                 }
-                              >
-                                +
-                              </Button>
-                            </Col>
-                            <Col>Maksa: 1€</Col>
-                          </Row>
-                        </Collapse>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label="Ananāss 50g"
-                          onChange={() => {
-                            setAnaniasMenuOpen(!ananiasMenuOpen);
-                            if (ananiasMenuOpen) {
-                              setAnaniasCount(0);
-                            }
-                          }}
-                        />
-                        <Collapse in={ananiasMenuOpen}>
-                          <Row>
-                            <Col>
-                              <Button
-                                variant="danger"
-                                onClick={() => decrementCounter("ananias")}
-                              >
-                                -
-                              </Button>
-                            </Col>
-                            <Col>{ananiasCount}</Col>
-                            <Col>
-                              <Button
-                                variant="success"
-                                onClick={() => incrementCounter("ananias")}
-                                disabled={
-                                  ananiasCount >= 3 ||
-                                  totalIngredientsCount >= 10
-                                }
-                              >
-                                +
-                              </Button>
-                            </Col>
-                            <Col>Maksa: 1€</Col>
-                          </Row>
-                        </Collapse>
+                              }}
+                            />
+                            <Collapse in={ananiasMenuOpen}>
+                              <Row>
+                                <Col>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => decrementCounter("ananias")}
+                                  >
+                                    -
+                                  </Button>
+                                </Col>
+                                <Col>{ananiasCount}</Col>
+                                <Col>
+                                  <Button
+                                    variant="success"
+                                    onClick={() => incrementCounter("ananias")}
+                                    disabled={
+                                      ananiasCount >= 3 ||
+                                      totalIngredientsCount >= 10
+                                    }
+                                  >
+                                    +
+                                  </Button>
+                                </Col>
+                                <Col>Maksa: 1€</Col>
+                              </Row>
+                            </Collapse>
+                          </>
+                        )}
                         <Row className="justify-content-md-center">
                           <Col xs="auto">Kopā: {total}€</Col>
                         </Row>
