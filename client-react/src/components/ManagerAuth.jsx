@@ -23,7 +23,6 @@ function ManagerAuth(props) {
     navigate("/");
   };
 
-  console.log(nameAuth);
 
   return (
     <>

@@ -54,6 +54,7 @@ function LoginPage() {
 
   /* const checkStorage = localStorage.hasOwnProperty("currentUser");
    */
+  console.log(operators);
 
   return (
     <Container>
